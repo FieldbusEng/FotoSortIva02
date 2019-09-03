@@ -1,0 +1,15 @@
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\FotoSortIva02.exe.config
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\FotoSortIva02.exe
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\FotoSortIva02.pdb
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csprojAssemblyReference.cache
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\MainWindow.g.cs
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\App.g.cs
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02_MarkupCompile.cache
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02_MarkupCompile.lref
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\MainWindow.baml
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.g.resources
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.Properties.Resources.resources
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.GenerateResource.cache
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CoreCompileInputs.cache
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.exe
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.pdb
