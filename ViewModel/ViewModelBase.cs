@@ -85,7 +85,9 @@ namespace FotoSortIva02.ViewModel
 
                                 File.WriteAllLines(filePath, lines);
 
-                                string monthOfPic = datePictureTaken.Month.ToString();
+                                int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                string monthOfPic = "NOMonth";
+                                StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
                                 string yearOfPic = datePictureTaken.Year.ToString();
                                 // making extended Pathes
                                 string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
