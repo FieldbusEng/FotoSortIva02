@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FotoSortIva02"
         mc:Ignorable="d"
         xmlns:VM="clr-namespace:FotoSortIva02.ViewModel"
-        Title="ShellView" Height="Auto" Width="640"  WindowStartupLocation="CenterScreen" Background="#FF84BEBF" d:DesignWidth="653.227">
+        Title="Foto Sorting Ver.02" Height="Auto" Width="640"  WindowStartupLocation="CenterScreen" Background="#FF84BEBF" d:DesignWidth="653.227">
     <Grid Margin="2,0,1.6,0.4" HorizontalAlignment="Left" Width="638">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -68,6 +68,9 @@
 
         <Button Command="{Binding StartButtCommand}" Grid.Column="5
                 " Grid.Row="13" Content="StartProcess"/>
+
+        <Button Command="{Binding LogButtCommand}" Grid.Column="3"
+                Grid.Row="13" Content="Log file"/>
 
         <Button Command="{Binding ExitButtCommand}" Grid.Column="5" Grid.Row="14" Height="20" Content="Exit"/>
 

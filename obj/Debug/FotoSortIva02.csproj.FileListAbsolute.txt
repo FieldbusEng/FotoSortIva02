@@ -13,3 +13,7 @@ C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CoreCompileInputs.cache
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.exe
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.pdb
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\XmpCore.dll
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\XmpCore.xml
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CopyComplete
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\ExifLib.dll
