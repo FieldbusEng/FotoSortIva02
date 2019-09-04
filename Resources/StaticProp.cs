@@ -13,9 +13,11 @@ namespace FotoSortIva02.Resources
         // string where i store the path of the folder where we scan for jpg files 
         public static string ScanningFolderPath = "empty";
 
-        // 
+        // to show text in text boxes
         public static string initTextBoxScanFolder = "empty";
         public static string initTextBoxNewFolder = "empty";
+        public static string initTextBoxStatus = "Preparation";
+        // ------------------------
 
         public static string January = "January";
         public static string February = "February";

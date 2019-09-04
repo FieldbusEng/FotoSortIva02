@@ -55,6 +55,8 @@ namespace FotoSortIva02.ViewModel
             if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
             //if (StaticProp.ScanningFolderPath != "empty")
             {
+                // Change TextBoxStatus
+                TextBoxStatus = "Process Started";
 
                 Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
 
@@ -142,9 +144,12 @@ namespace FotoSortIva02.ViewModel
             else
             {
                 MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-
+                // Change TextBoxStatus
+                TextBoxStatus = "Folders not determined";
 
             }
+            // Change TextBoxStatus
+            TextBoxStatus = "Process Finished!";
         }
         #endregion
 
@@ -196,8 +201,9 @@ namespace FotoSortIva02.ViewModel
                 TextBoxNewFolder = StaticProp.CreateFolderPath;
                 
             }
-            
 
+            // Change TextBoxStatus
+            TextBoxStatus = "Folder New is choosen";
         }
         #endregion
 
@@ -222,6 +228,9 @@ namespace FotoSortIva02.ViewModel
         string[] filesNames = new string[] { };
         void ScanButtAction()
         {
+            // Change TextBoxStatus
+            TextBoxStatus = "Scanning Started";
+
             //use FolderBrowserDialog instead of FileDialog and get the path from the OK result.
 
             FolderBrowserDialog browser = new FolderBrowserDialog();
@@ -242,6 +251,7 @@ namespace FotoSortIva02.ViewModel
                 TextBoxFotoCounter=TextBoxFotoCounterMethod(filesNames);
                 TextGenShowMethod(string.Join("\r\n", filesNames));
             }
+            TextBoxStatus = "Scanning Finished";
 
         }
 

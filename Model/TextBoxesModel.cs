@@ -52,5 +52,16 @@ namespace FotoSortIva02.Model
                 RaisePropertyChange("TextBoxScanFolder");
             }
         }
+
+        private string textBoxStatus;
+        public string TextBoxStatus
+        {
+            get { return textBoxStatus; }
+            set
+            {
+                textBoxStatus = value;
+                RaisePropertyChange("TextBoxStatus");
+            }
+        }
     }
 }
