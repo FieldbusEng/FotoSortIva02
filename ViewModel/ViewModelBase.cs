@@ -16,10 +16,12 @@ namespace FotoSortIva02.ViewModel
 {
     public class ViewModelBase : TextBoxesModel
     {
+      
         #region CTOR
         string filePath;
         public ViewModelBase()
         {
+            
             // Delete the log file from the beggining of the Test!
             string FilePath = String.Format("LOOGGER.txt");
             filePath = FilePath;
@@ -49,94 +51,98 @@ namespace FotoSortIva02.ViewModel
             }
         }
 
-        void StartButtAction()
+        async void StartButtAction()
         {
             // todo change belo line back
             if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
             //if (StaticProp.ScanningFolderPath != "empty")
             {
-                // Change TextBoxStatus
-                TextBoxStatus = "Process Started";
-
-                Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
-
-                String searchFolder = pathing.InitialFolderPath;
-                var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
-                filesNames = GetLongFilesFrom(searchFolder, filters, false);
-                foreach (string item in filesNames)
+                await Task.Run(() =>
                 {
-                    try
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Process Started";
+
+                    Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+
+                    String searchFolder = pathing.InitialFolderPath;
+                    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                    filesNames = GetLongFilesFrom(searchFolder, filters, false);
+                    foreach (string item in filesNames)
                     {
-                        using (ExifReader reader = new ExifReader(item))
+                        try
                         {
-                            // Extract the tag data using the ExifTags enumeration
-                            DateTime datePictureTaken;
-                            if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                            using (ExifReader reader = new ExifReader(item))
                             {
-                                // Do whatever is required with the extracted information
-                                string messageToWriteSuccess = "The picture was taken on  " +datePictureTaken.ToString();
-
-
-                                //Logger
-                                // read all lines from txt file and put it to List<string>
-                                List<string> lines = File.ReadAllLines(filePath).ToList();
-                                // Add time
-                                lines.Add(DateTime.UtcNow.ToString());
-                                // message
-                                lines.Add(messageToWriteSuccess);
-
-                                File.WriteAllLines(filePath, lines);
-
-                                int intmonthOfPic = (Int32)datePictureTaken.Month;
-                                string monthOfPic = "NOMonth";
-                                StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
-                                string yearOfPic = datePictureTaken.Year.ToString();
-                                // making extended Pathes
-                                string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
-                                string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
-                                //---------------------
-
-
-                                // check if such a year exist in the new folder
-                                if (File.Exists(extendedYearPath))
+                                // Extract the tag data using the ExifTags enumeration
+                                DateTime datePictureTaken;
+                                if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
                                 {
-                                    //check if such a month exist in the new folder
-                                    if (File.Exists(extendedMonthPath))
+                                    // Do whatever is required with the extracted information
+                                    string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+
+
+                                    //Logger
+                                    // read all lines from txt file and put it to List<string>
+                                    List<string> lines = File.ReadAllLines(filePath).ToList();
+                                    // Add time
+                                    lines.Add(DateTime.UtcNow.ToString());
+                                    // message
+                                    lines.Add(messageToWriteSuccess);
+
+                                    File.WriteAllLines(filePath, lines);
+
+                                    int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                    string monthOfPic = "NOMonth";
+                                    StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                    string yearOfPic = datePictureTaken.Year.ToString();
+                                    // making extended Pathes
+                                    string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                    string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                    //---------------------
+
+
+                                    // check if such a year exist in the new folder
+                                    if (File.Exists(extendedYearPath))
                                     {
-                                        
+                                        //check if such a month exist in the new folder
+                                        if (File.Exists(extendedMonthPath))
+                                        {
 
+
+                                        }
                                     }
+                                    else
+                                    {
+                                        Directory.CreateDirectory(extendedYearPath);
+                                        Directory.CreateDirectory(extendedMonthPath);
+                                    }
+
+
+
                                 }
-                                else
-                                {
-                                    Directory.CreateDirectory(extendedYearPath);
-                                    Directory.CreateDirectory(extendedMonthPath);
-                                }
-
-
-
                             }
                         }
+                        catch (Exception e)
+                        {
+                            string messageToWriteFailed = "Exception happen" + e.ToString();
+
+                            //Logger
+                            // read all lines from txt file and put it to List<string>
+                            List<string> lines = File.ReadAllLines(filePath).ToList();
+                            // Add time
+                            lines.Add(DateTime.UtcNow.ToString());
+                            // message
+                            lines.Add(messageToWriteFailed);
+
+                            File.WriteAllLines(filePath, lines);
+
+                            // here i need to create directory in case Exif Data not exist
+                            string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                            Directory.CreateDirectory(extendedNoExif);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        string messageToWriteFailed = "Exception happen" + e.ToString();
 
-                        //Logger
-                        // read all lines from txt file and put it to List<string>
-                        List<string> lines = File.ReadAllLines(filePath).ToList();
-                        // Add time
-                        lines.Add(DateTime.UtcNow.ToString());
-                        // message
-                        lines.Add(messageToWriteFailed);
-
-                        File.WriteAllLines(filePath, lines);
-
-                        // here i need to create directory in case Exif Data not exist
-                        string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
-                        Directory.CreateDirectory(extendedNoExif);
-                    }
-                }
+                });
                 
 
 
@@ -248,7 +254,8 @@ namespace FotoSortIva02.ViewModel
                 String searchFolder = pathing.InitialFolderPath;
                 var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                 filesNames = GetShortFilesFrom(searchFolder, filters, false);
-                TextBoxFotoCounter=TextBoxFotoCounterMethod(filesNames);
+                TextBoxFotoCounter=TextBoxFotoCounterMethod<string>(filesNames);
+                ProgressBarStatusMax = TextBoxFotoCounterMethod<int>;
                 TextGenShowMethod(string.Join("\r\n", filesNames));
             }
             TextBoxStatus = "Scanning Finished";
@@ -315,7 +322,7 @@ namespace FotoSortIva02.ViewModel
             TextBoxGenShow = income;
         }
         
-        string TextBoxFotoCounterMethod(string[] income)
+        T TextBoxFotoCounterMethod<T>(string[] income)
         {
             int count = 0;
 
@@ -324,7 +331,7 @@ namespace FotoSortIva02.ViewModel
                 count++;
             }
 
-            return count.ToString();
+            return (T)Convert.ChangeType(count, typeof(T));
         }
 
         #region Button Exit

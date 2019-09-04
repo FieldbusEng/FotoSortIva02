@@ -8,6 +8,38 @@ namespace FotoSortIva02.Model
 {
     public class TextBoxesModel : NotifyPropertyChanged
     {
+        #region ProgressBarStatus
+        private int progressBarStatusValue;
+        public int ProgressBarStatusValue
+        {
+            get { return this.progressBarStatusValue; }
+            set
+            {
+                if (this.progressBarStatusValue != value)
+                {
+                    progressBarStatusValue = value;
+                    RaisePropertyChange("ProgressBarValue");
+                }
+            }
+        }
+
+        private int progressBarStatusMax;
+        public int ProgressBarStatusMax
+        {
+            get { return this.progressBarStatusMax; }
+            set
+            {
+                if (this.progressBarStatusMax != value)
+                {
+                    progressBarStatusMax = value;
+                    RaisePropertyChange("ProgressBarMax");
+                }
+            }
+        }
+
+        #endregion
+
+
         private string textBoxGenShow;
         public string TextBoxGenShow
         {

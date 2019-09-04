@@ -42,9 +42,9 @@
         
         -->
         <ProgressBar x:Name="ProgressBarStatus"
-        Value="{Binding Progress}" 
-        Maximum="{Binding Maximum}" 
-        Minimum="{Binding Minimum}"
+        Value="{Binding ProgressBarStatusVal}" 
+        Maximum="{Binding ProgressBarStatusMax}" 
+        Minimum="0"
         Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,0,10,0"/>
 
         <TextBlock Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Grid.Column="1" Text="Welcome to Foto Sorting Application" FontSize="22" FontWeight="Bold" Foreground="#FF0C0811" />
