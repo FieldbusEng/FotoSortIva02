@@ -36,6 +36,7 @@ namespace FotoSortIva02.ViewModel
             TextBoxGenShow = "Initial Value";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
+            ProgressBarStatusMax = 100;
             ProgressBarStatusVisible = false;
 
         }
@@ -58,6 +59,8 @@ namespace FotoSortIva02.ViewModel
             if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
             //if (StaticProp.ScanningFolderPath != "empty")
             {
+                ProgressBarStatusVisible = true;
+
                 await Task.Run(() =>
                 {
                     // Change TextBoxStatus
