@@ -129,8 +129,10 @@ namespace FotoSortIva02.ViewModel
                         lines.Add(messageToWriteFailed);
 
                         File.WriteAllLines(filePath, lines);
-                       
 
+                        // here i need to create directory in case Exif Data not exist
+                        string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                        Directory.CreateDirectory(extendedNoExif);
                     }
                 }
                 
