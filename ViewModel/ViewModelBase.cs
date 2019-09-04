@@ -36,6 +36,7 @@ namespace FotoSortIva02.ViewModel
             TextBoxGenShow = "Initial Value";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
+            ProgressBarStatusVisible = false;
 
         }
         #endregion
@@ -255,7 +256,7 @@ namespace FotoSortIva02.ViewModel
                 var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                 filesNames = GetShortFilesFrom(searchFolder, filters, false);
                 TextBoxFotoCounter=TextBoxFotoCounterMethod<string>(filesNames);
-                ProgressBarStatusMax = TextBoxFotoCounterMethod<int>;
+                ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);
                 TextGenShowMethod(string.Join("\r\n", filesNames));
             }
             TextBoxStatus = "Scanning Finished";

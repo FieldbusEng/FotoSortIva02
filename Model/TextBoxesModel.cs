@@ -9,6 +9,18 @@ namespace FotoSortIva02.Model
     public class TextBoxesModel : NotifyPropertyChanged
     {
         #region ProgressBarStatus
+        bool progressBarStatusVisible;
+        public bool ProgressBarStatusVisible
+        {
+            get { return progressBarStatusVisible; }
+            set
+            {
+                progressBarStatusVisible = value;
+                RaisePropertyChange("ProgressBarStatusVisible");
+            }
+        }
+
+
         private int progressBarStatusValue;
         public int ProgressBarStatusValue
         {

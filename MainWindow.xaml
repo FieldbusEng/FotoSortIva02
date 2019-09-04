@@ -41,9 +41,9 @@
         <!--
         
         -->
-        <ProgressBar x:Name="ProgressBarStatus"
-        Value="{Binding ProgressBarStatusVal}" 
-        Maximum="{Binding ProgressBarStatusMax}" 
+        <ProgressBar Value="{Binding ProgressBarStatusVal}" 
+        Maximum="{Binding ProgressBarStatusMax}"
+        Visibility="{Binding ProgressBarStatusVisible}"
         Minimum="0"
         Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,0,10,0"/>
 
