@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
@@ -16,7 +17,14 @@ namespace FotoSortIva02.ViewModel
 {
     public class ViewModelBase : TextBoxesModel
     {
-      
+
+        #region Progress Bar things
+       
+
+        #endregion
+
+
+
         #region CTOR
         string filePath;
         public ViewModelBase()
@@ -37,7 +45,8 @@ namespace FotoSortIva02.ViewModel
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
             ProgressBarStatusMax = 100;
-            ProgressBarStatusVisible = false;
+            //ProgressBarStatusVisibleBool = false;
+            this.ProgressBarStatusVisibile = Visibility.Collapsed;
 
         }
         #endregion
@@ -59,7 +68,7 @@ namespace FotoSortIva02.ViewModel
             if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
             //if (StaticProp.ScanningFolderPath != "empty")
             {
-                ProgressBarStatusVisible = true;
+                ProgressBarStatusVisibleBool = true;
 
                 await Task.Run(() =>
                 {
@@ -153,7 +162,7 @@ namespace FotoSortIva02.ViewModel
             }
             else
             {
-                MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
                 // Change TextBoxStatus
                 TextBoxStatus = "Folders not determined";
 

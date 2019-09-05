@@ -3,20 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FotoSortIva02.Model
 {
     public class TextBoxesModel : NotifyPropertyChanged
     {
         #region ProgressBarStatus
-        bool progressBarStatusVisible;
-        public bool ProgressBarStatusVisible
+
+        private Visibility progressBarStatusVisible;
+        public Visibility ProgressBarStatusVisibile
         {
-            get { return progressBarStatusVisible; }
+            get
+            {
+                //return (ProgressBarStatusVisibleBool == true) ? Visibility.Visible : Visibility.Collapsed;
+                return progressBarStatusVisible;
+            }
             set
             {
                 progressBarStatusVisible = value;
-                RaisePropertyChange("ProgressBarStatusVisible");
+                RaisePropertyChange("ProgressBarStatusVisibile");
+            }
+        }
+
+
+
+        bool progressBarStatusVisibleBool;
+        public bool ProgressBarStatusVisibleBool
+        {
+            get { return progressBarStatusVisibleBool; }
+            set
+            {
+                progressBarStatusVisibleBool = value;
+                RaisePropertyChange("ProgressBarStatusVisibleBool");
             }
         }
 
