@@ -67,18 +67,18 @@
         <TextBlock Text="Status of App : " Grid.Column="0" HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Top" FontSize="15" />
         <TextBox x:Name="TextBoxStatus" Grid.Row="8" Grid.Column="1"  Grid.ColumnSpan="2" Margin="0,0,10,0"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
-        Text="{Binding TextBoxStatus}"></TextBox>
+        Text="{Binding TextBoxStatus, Mode=OneWay}"></TextBox>
 
         <TextBlock Text="Qnt.files : " Grid.Column="3" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" />
 
         <TextBox x:Name="TextBoxFotoCounter" Grid.Row="2" Grid.Column="4"  
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
-        Text="{Binding TextBoxFotoCounter}"></TextBox>
+        Text="{Binding TextBoxFotoCounter, Mode=OneWay}"></TextBox>
 
 
         <TextBox x:Name="TextBoxGenShow" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="9"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
-        Text="{Binding TextBoxGenShow}"
+        Text="{Binding TextBoxGenShow, Mode=OneWay}"
         VerticalScrollBarVisibility="Auto"></TextBox>
 
         <Button Command="{Binding StartButtCommand}" Grid.Column="5

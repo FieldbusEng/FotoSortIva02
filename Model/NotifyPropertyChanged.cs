@@ -14,9 +14,10 @@ namespace FotoSortIva02.Model
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
             }
         }
 
+        
     }
 }
