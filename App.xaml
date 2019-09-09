@@ -5,42 +5,69 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <Style x:Key="StyleButtonExit" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Plum"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Red"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary/GenDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style x:Key="StyleButtonExit" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Plum"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <Style x:Key="StyleButtonStart" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="FloralWhite"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DarkTurquoise"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <Style x:Key="StyleButtonStart" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="FloralWhite"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="DarkTurquoise"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
+
+
+            <Style x:Key="StyleTextBlockOne" TargetType="{x:Type TextBlock}">
+                <!--<Setter Property="Background" Value="AntiqueWhite" /> -->
+                <Setter Property="Foreground" Value="MintCream" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStretch" Value="UltraExpanded" />
+                <Setter Property="FontStyle" Value="Italic"/>
+                <Setter Property="FontWeight" Value="UltraBold" />
+                <Setter Property="LineHeight" Value="Auto"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Typography.NumeralStyle" Value="OldStyle"/>
+                <Setter Property="Typography.SlashedZero" Value="True"/>
+                <Setter Property="Effect" Value="{DynamicResource DropShadowEffectStyle}" />
+                
+            </Style>
+
+        </ResourceDictionary>
+        
+       
 
     </Application.Resources>
 </Application>
