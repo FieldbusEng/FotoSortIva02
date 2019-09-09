@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -18,13 +19,7 @@ namespace FotoSortIva02.ViewModel
     public class ViewModelBase : TextBoxesModel
     {
 
-        #region Progress Bar things
        
-
-        #endregion
-
-
-
         #region CTOR
         string filePath;
         public ViewModelBase()
@@ -44,9 +39,8 @@ namespace FotoSortIva02.ViewModel
             TextBoxGenShow = "Initial Value";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
-            ProgressBarStatusMax = 100;
-            //ProgressBarStatusVisibleBool = false;
-            this.ProgressBarStatusVisibile = Visibility.Collapsed;
+
+            ProgressBarStatusVisible = Visibility.Hidden;
 
         }
         #endregion
@@ -68,12 +62,13 @@ namespace FotoSortIva02.ViewModel
             if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
             //if (StaticProp.ScanningFolderPath != "empty")
             {
-                ProgressBarStatusVisibleBool = true;
 
                 await Task.Run(() =>
                 {
                     // Change TextBoxStatus
                     TextBoxStatus = "Process Started";
+                    // Progress bar visible
+                    ProgressBarStatusVisible = Visibility.Visible;
 
                     Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
 
@@ -82,6 +77,7 @@ namespace FotoSortIva02.ViewModel
                     filesNames = GetLongFilesFrom(searchFolder, filters, false);
                     foreach (string item in filesNames)
                     {
+                        ProgressBarStatusValue++;
                         try
                         {
                             using (ExifReader reader = new ExifReader(item))
@@ -101,7 +97,6 @@ namespace FotoSortIva02.ViewModel
                                     lines.Add(DateTime.UtcNow.ToString());
                                     // message
                                     lines.Add(messageToWriteSuccess);
-
                                     File.WriteAllLines(filePath, lines);
 
                                     int intmonthOfPic = (Int32)datePictureTaken.Month;
@@ -120,17 +115,25 @@ namespace FotoSortIva02.ViewModel
                                         //check if such a month exist in the new folder
                                         if (File.Exists(extendedMonthPath))
                                         {
-
+                                            // Copy the file
+                                            string fileToCopy = item;
+                                            string destinationDirectory = extendedMonthPath + "\\";
+                                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
 
                                         }
                                     }
                                     else
                                     {
+                                        // Copy the file
                                         Directory.CreateDirectory(extendedYearPath);
                                         Directory.CreateDirectory(extendedMonthPath);
+                                        string fileToCopy = item;
+                                        string destinationDirectory = extendedMonthPath + "\\";
+                                        File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
                                     }
 
 
+                                    Thread.Sleep(100);
 
                                 }
                             }
@@ -152,11 +155,15 @@ namespace FotoSortIva02.ViewModel
                             // here i need to create directory in case Exif Data not exist
                             string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                             Directory.CreateDirectory(extendedNoExif);
+                            // Copy the file
+                            string fileToCopy = item;
+                            string destinationDirectory = extendedNoExif + "\\";
+                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
                         }
                     }
 
                 });
-                
+
 
 
             }
@@ -171,6 +178,7 @@ namespace FotoSortIva02.ViewModel
             TextBoxStatus = "Process Finished!";
         }
         #endregion
+
 
         #region Button LogButtCommand
 
@@ -253,7 +261,7 @@ namespace FotoSortIva02.ViewModel
             //use FolderBrowserDialog instead of FileDialog and get the path from the OK result.
 
             FolderBrowserDialog browser = new FolderBrowserDialog();
-            
+
 
             if (browser.ShowDialog() == DialogResult.OK)
             {
@@ -267,7 +275,7 @@ namespace FotoSortIva02.ViewModel
                 String searchFolder = pathing.InitialFolderPath;
                 var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                 filesNames = GetShortFilesFrom(searchFolder, filters, false);
-                TextBoxFotoCounter=TextBoxFotoCounterMethod<string>(filesNames);
+                TextBoxFotoCounter = TextBoxFotoCounterMethod<string>(filesNames);
                 ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);
                 TextGenShowMethod(string.Join("\r\n", filesNames));
             }

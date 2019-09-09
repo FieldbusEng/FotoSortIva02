@@ -12,7 +12,7 @@ namespace FotoSortIva02.Model
         #region ProgressBarStatus
 
         private Visibility progressBarStatusVisible;
-        public Visibility ProgressBarStatusVisibile
+        public Visibility ProgressBarStatusVisible
         {
             get
             {
@@ -22,20 +22,7 @@ namespace FotoSortIva02.Model
             set
             {
                 progressBarStatusVisible = value;
-                RaisePropertyChange("ProgressBarStatusVisibile");
-            }
-        }
-
-
-
-        bool progressBarStatusVisibleBool;
-        public bool ProgressBarStatusVisibleBool
-        {
-            get { return progressBarStatusVisibleBool; }
-            set
-            {
-                progressBarStatusVisibleBool = value;
-                RaisePropertyChange("ProgressBarStatusVisibleBool");
+                RaisePropertyChange("ProgressBarStatusVisible");
             }
         }
 
@@ -46,11 +33,9 @@ namespace FotoSortIva02.Model
             get { return this.progressBarStatusValue; }
             set
             {
-                if (this.progressBarStatusValue != value)
-                {
-                    progressBarStatusValue = value;
-                    RaisePropertyChange("ProgressBarValue");
-                }
+                progressBarStatusValue = value;
+                RaisePropertyChange("ProgressBarStatusValue");
+
             }
         }
 
@@ -60,11 +45,9 @@ namespace FotoSortIva02.Model
             get { return this.progressBarStatusMax; }
             set
             {
-                if (this.progressBarStatusMax != value)
-                {
-                    progressBarStatusMax = value;
-                    RaisePropertyChange("ProgressBarMax");
-                }
+                progressBarStatusMax = value;
+                RaisePropertyChange("ProgressBarStatusMax");
+
             }
         }
 
