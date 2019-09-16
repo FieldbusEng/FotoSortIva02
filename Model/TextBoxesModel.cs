@@ -10,7 +10,6 @@ namespace FotoSortIva02.Model
     public class TextBoxesModel : NotifyPropertyChanged
     {
         #region ProgressBarStatus
-
         private Visibility progressBarStatusVisible;
         public Visibility ProgressBarStatusVisible
         {
@@ -53,6 +52,20 @@ namespace FotoSortIva02.Model
 
         #endregion
 
+
+        #region CheckBoxDelete
+        private bool checkBoxDelete;
+        public bool CheckBoxDelete
+        {
+            get { return checkBoxDelete; }
+            set
+            {
+                checkBoxDelete = value;
+                RaisePropertyChange("CheckBoxDelete");
+            }
+        }
+
+        #endregion
 
         private string textBoxGenShow;
         public string TextBoxGenShow

@@ -38,7 +38,10 @@ namespace FotoSortIva02.Resources
             {10, October },{11, November },{12, December }
 
         };
-        
+
+
+        // Static bool for CheckBoxDelete
+        public static bool PropCheckBoxDelete = false;
 
     }
 

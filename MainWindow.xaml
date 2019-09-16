@@ -54,7 +54,7 @@
         Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="3"
                      Margin="0,0.2,10,19.8" Grid.RowSpan="2" />
 
-        <TextBlock Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="5" Grid.Column="3" Text="Welcome to Foto Sorting Application" FontSize="22" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0,0,19.8" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="5" Grid.Column="3" Text="Foto Sorting App" FontSize="22" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0,0,19.8" />
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="5" Text="Location of your Files" FontSize="16" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0.2,0,19.8" Grid.RowSpan="2" />
 
@@ -73,7 +73,9 @@
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
         Text="{Binding TextBoxStatus, Mode=OneWay}" Grid.RowSpan="2"></TextBox>
 
-        <TextBlock Text="Qnt.files : " Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Margin="0,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Delete original files after copying : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+
+        <TextBlock Text="Qnt.files : " Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Margin="1,0.2,0,0" Grid.RowSpan="2" />
 
         <TextBox x:Name="TextBoxFotoCounter" Grid.Row="2" Grid.Column="6"  
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
@@ -91,6 +93,11 @@
                 Grid.Row="13" Content="Log file" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
 
         <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="Exit"  />
+        <CheckBox  Command="{Binding CheckBoxDelete}" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="12" VerticalAlignment="Top" Grid.RowSpan="2">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
 
 
 

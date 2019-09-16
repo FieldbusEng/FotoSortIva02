@@ -6,8 +6,9 @@
     <Application.Resources>
 
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionary/GenDictionary.xaml"/>
+                <ResourceDictionary Source="Dictionary1.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             
             <Style x:Key="StyleButtonExit" TargetType="{x:Type Button}">
@@ -50,8 +51,8 @@
 
             <Style x:Key="StyleTextBlockOne" TargetType="{x:Type TextBlock}">
                 <!--<Setter Property="Background" Value="AntiqueWhite" /> -->
-                <Setter Property="Foreground" Value="MintCream" />
-                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Foreground" Value="Azure" />
+                <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontStretch" Value="UltraExpanded" />
                 <Setter Property="FontStyle" Value="Italic"/>
                 <Setter Property="FontWeight" Value="UltraBold" />
@@ -61,9 +62,20 @@
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="Typography.NumeralStyle" Value="OldStyle"/>
                 <Setter Property="Typography.SlashedZero" Value="True"/>
-                <Setter Property="Effect" Value="{DynamicResource DropShadowEffectStyle}" />
-                
+
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Direction="315" Opacity="0.5" ShadowDepth="7"/>
+                    </Setter.Value>
+                </Setter>
+
+
+
             </Style>
+
+            
+
+
 
         </ResourceDictionary>
         

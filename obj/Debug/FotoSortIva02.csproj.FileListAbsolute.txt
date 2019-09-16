@@ -18,4 +18,4 @@ C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\XmpCore.xml
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CopyComplete
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\bin\Debug\ExifLib.dll
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\App.baml
-C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\ResourceDictionary\GenDictionary.baml
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\Dictionary1.baml
