@@ -36,7 +36,7 @@ namespace FotoSortIva02.ViewModel
             // write to LOG
             File.WriteAllLines(filePath, lines);
 
-            TextBoxGenShow = "Initial Value";
+            TextBoxGenShow = "No Pictures choosen";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
 
@@ -58,143 +58,276 @@ namespace FotoSortIva02.ViewModel
 
         async void StartButtAction()
         {
-            // todo change belo line back
-            if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-            //if (StaticProp.ScanningFolderPath != "empty")
+            if (StaticProp.PropCheckBoxDelete)
             {
-
-                await Task.Run(() =>
+                #region In case of CheckBox is True
+                // todo change belo line back
+                if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+                //if (StaticProp.ScanningFolderPath != "empty")
                 {
-                    // Change TextBoxStatus
-                    TextBoxStatus = "Process Started";
-                    // Progress bar visible
-                    ProgressBarStatusVisible = Visibility.Visible;
 
-                    Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
-
-                    String searchFolder = pathing.InitialFolderPath;
-                    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
-                    filesNames = GetLongFilesFrom(searchFolder, filters, false);
-                    foreach (string item in filesNames)
+                    await Task.Run(() =>
                     {
-                        ProgressBarStatusValue++;
-                        try
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Process Started";
+                        // Progress bar visible
+                        ProgressBarStatusVisible = Visibility.Visible;
+
+                        Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+
+                        String searchFolder = pathing.InitialFolderPath;
+                        var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                        filesNames = GetLongFilesFrom(searchFolder, filters, false);
+                        foreach (string item in filesNames)
                         {
-                            using (ExifReader reader = new ExifReader(item))
+                            ProgressBarStatusValue++;
+                            try
                             {
-                                // Extract the tag data using the ExifTags enumeration
-                                DateTime datePictureTaken;
-                                if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                                using (ExifReader reader = new ExifReader(item))
                                 {
-                                    // Do whatever is required with the extracted information
-                                    string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-
-
-                                    //Logger
-                                    // read all lines from txt file and put it to List<string>
-                                    List<string> lines = File.ReadAllLines(filePath).ToList();
-                                    // Add time
-                                    lines.Add(DateTime.UtcNow.ToString());
-                                    // message
-                                    lines.Add(messageToWriteSuccess);
-                                    File.WriteAllLines(filePath, lines);
-
-                                    int intmonthOfPic = (Int32)datePictureTaken.Month;
-                                    string monthOfPic = "NOMonth";
-                                    StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
-                                    string yearOfPic = datePictureTaken.Year.ToString();
-                                    // making extended Pathes
-                                    string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
-                                    string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
-                                    //---------------------
-
-
-                                    // check if such a year exist in the new folder
-                                    if (File.Exists(extendedYearPath))
+                                    // Extract the tag data using the ExifTags enumeration
+                                    DateTime datePictureTaken;
+                                    if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
                                     {
-                                        //check if such a month exist in the new folder
-                                        if (File.Exists(extendedMonthPath))
+                                        // Do whatever is required with the extracted information
+                                        string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+
+
+                                        //Logger
+                                        // read all lines from txt file and put it to List<string>
+                                        List<string> lines = File.ReadAllLines(filePath).ToList();
+                                        // Add time
+                                        lines.Add(DateTime.UtcNow.ToString());
+                                        // message
+                                        lines.Add(messageToWriteSuccess);
+                                        File.WriteAllLines(filePath, lines);
+
+                                        int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                        string monthOfPic = "NOMonth";
+                                        StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                        string yearOfPic = datePictureTaken.Year.ToString();
+                                        // making extended Pathes
+                                        string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                        string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                        //---------------------
+
+
+                                        // check if such a year exist in the new folder
+                                        if (File.Exists(extendedYearPath))
+                                        {
+                                            //check if such a month exist in the new folder
+                                            if (File.Exists(extendedMonthPath))
+                                            {
+                                                // Copy the file
+                                                string fileToCopy = item;
+                                                string destinationDirectory = extendedMonthPath + "\\";
+                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                // Delete original file
+                                                File.Delete(@"C:\Temp\Data\Authors.txt");
+
+                                            }
+                                        }
+                                        else
                                         {
                                             // Copy the file
+                                            Directory.CreateDirectory(extendedYearPath);
+                                            Directory.CreateDirectory(extendedMonthPath);
                                             string fileToCopy = item;
                                             string destinationDirectory = extendedMonthPath + "\\";
                                             File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-
                                         }
+
+
+                                        Thread.Sleep(100);
+
                                     }
-                                    else
-                                    {
-                                        // Copy the file
-                                        Directory.CreateDirectory(extendedYearPath);
-                                        Directory.CreateDirectory(extendedMonthPath);
-                                        string fileToCopy = item;
-                                        string destinationDirectory = extendedMonthPath + "\\";
-                                        File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-                                    }
-
-
-                                    Thread.Sleep(100);
-
                                 }
                             }
+                            catch (Exception e)
+                            {
+                                string messageToWriteFailed = "Exception happen" + e.ToString();
+
+                                //Logger
+                                // read all lines from txt file and put it to List<string>
+                                List<string> lines = File.ReadAllLines(filePath).ToList();
+                                // Add time
+                                lines.Add(DateTime.UtcNow.ToString());
+                                // message
+                                lines.Add(messageToWriteFailed);
+
+                                File.WriteAllLines(filePath, lines);
+
+                                // here i need to create directory in case Exif Data not exist
+                                string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                                Directory.CreateDirectory(extendedNoExif);
+                                // Copy the file
+                                string fileToCopy = item;
+                                string destinationDirectory = extendedNoExif + "\\";
+                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
+                            }
                         }
-                        catch (Exception e)
-                        {
-                            string messageToWriteFailed = "Exception happen" + e.ToString();
 
-                            //Logger
-                            // read all lines from txt file and put it to List<string>
-                            List<string> lines = File.ReadAllLines(filePath).ToList();
-                            // Add time
-                            lines.Add(DateTime.UtcNow.ToString());
-                            // message
-                            lines.Add(messageToWriteFailed);
+                    });
 
-                            File.WriteAllLines(filePath, lines);
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Process Finished!";
 
-                            // here i need to create directory in case Exif Data not exist
-                            string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
-                            Directory.CreateDirectory(extendedNoExif);
-                            // Copy the file
-                            string fileToCopy = item;
-                            string destinationDirectory = extendedNoExif + "\\";
-                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
-                        }
-                    }
+                }
+                else
+                {
+                    //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Folders not determined";
 
-                });
+                }
 
-
-
+                #endregion
             }
             else
             {
-                //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-                // Change TextBoxStatus
-                TextBoxStatus = "Folders not determined";
+                #region In case of CheckBox is False
+                // todo change belo line back
+                if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+                //if (StaticProp.ScanningFolderPath != "empty")
+                {
 
+                    await Task.Run(() =>
+                    {
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Process Started";
+                        // Progress bar visible
+                        ProgressBarStatusVisible = Visibility.Visible;
+
+                        Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+
+                        String searchFolder = pathing.InitialFolderPath;
+                        var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                        filesNames = GetLongFilesFrom(searchFolder, filters, false);
+                        foreach (string item in filesNames)
+                        {
+                            ProgressBarStatusValue++;
+                            try
+                            {
+                                using (ExifReader reader = new ExifReader(item))
+                                {
+                                    // Extract the tag data using the ExifTags enumeration
+                                    DateTime datePictureTaken;
+                                    if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                                    {
+                                        // Do whatever is required with the extracted information
+                                        string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+
+
+                                        //Logger
+                                        // read all lines from txt file and put it to List<string>
+                                        List<string> lines = File.ReadAllLines(filePath).ToList();
+                                        // Add time
+                                        lines.Add(DateTime.UtcNow.ToString());
+                                        // message
+                                        lines.Add(messageToWriteSuccess);
+                                        File.WriteAllLines(filePath, lines);
+
+                                        int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                        string monthOfPic = "NOMonth";
+                                        StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                        string yearOfPic = datePictureTaken.Year.ToString();
+                                        // making extended Pathes
+                                        string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                        string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                        //---------------------
+
+
+                                        // check if such a year exist in the new folder
+                                        if (File.Exists(extendedYearPath))
+                                        {
+                                            //check if such a month exist in the new folder
+                                            if (File.Exists(extendedMonthPath))
+                                            {
+                                                // Copy the file
+                                                string fileToCopy = item;
+                                                string destinationDirectory = extendedMonthPath + "\\";
+                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Copy the file
+                                            Directory.CreateDirectory(extendedYearPath);
+                                            Directory.CreateDirectory(extendedMonthPath);
+                                            string fileToCopy = item;
+                                            string destinationDirectory = extendedMonthPath + "\\";
+                                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                        }
+
+
+                                        Thread.Sleep(100);
+
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                string messageToWriteFailed = "Exception happen" + e.ToString();
+
+                                //Logger
+                                // read all lines from txt file and put it to List<string>
+                                List<string> lines = File.ReadAllLines(filePath).ToList();
+                                // Add time
+                                lines.Add(DateTime.UtcNow.ToString());
+                                // message
+                                lines.Add(messageToWriteFailed);
+
+                                File.WriteAllLines(filePath, lines);
+
+                                // here i need to create directory in case Exif Data not exist
+                                string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                                Directory.CreateDirectory(extendedNoExif);
+                                // Copy the file
+                                string fileToCopy = item;
+                                string destinationDirectory = extendedNoExif + "\\";
+                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
+                            }
+                        }
+
+                    });
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Process Finished!";
+
+
+
+                }
+                else
+                {
+                    //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Folders not determined";
+
+                }
+
+                #endregion
             }
-            // Change TextBoxStatus
-            TextBoxStatus = "Process Finished!";
+
         }
         #endregion
 
-        #region CheckboxDelete
+        //#region CheckboxDelete
 
-        private ICommand _checkBoxDelte;
-        public ICommand CheckBoxDelete
-        {
-            get
-            {
-                return _checkBoxDelte ?? (_checkBoxDelte = new CommandHandler(() => CheckBoxDelteAction(), () => CanExecute));
-            }
-        }
 
-        void CheckBoxDelteAction()
-        {
-            PropCheckBoxDelete = true;
-        }
-        #endregion
+        //private ICommand _checkBoxDel_Checked;
+        //public ICommand CheckBoxDel_Checked
+        //{
+        //    get
+        //    {
+        //        return _checkBoxDel_Checked ?? (_checkBoxDel_Checked = new CommandHandler(() => CheckBoxDel_CheckedAction(), () => CanExecute));
+        //    }
+        //}
+
+        //void CheckBoxDel_CheckedAction()
+        //{
+        //    StaticProp.PropCheckBoxDelete = true;
+        //}
+        //#endregion
 
         #region Button LogButtCommand
 

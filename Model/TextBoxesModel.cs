@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FotoSortIva02.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,11 +58,18 @@ namespace FotoSortIva02.Model
         private bool checkBoxDelete;
         public bool CheckBoxDelete
         {
-            get { return checkBoxDelete; }
+            get
+            {
+                StaticProp.PropCheckBoxDelete = true;
+                RaisePropertyChange("CheckBoxDelete");
+                return checkBoxDelete;
+            }
+            
             set
             {
                 checkBoxDelete = value;
-                RaisePropertyChange("CheckBoxDelete");
+                
+                
             }
         }
 
