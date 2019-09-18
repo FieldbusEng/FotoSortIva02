@@ -311,23 +311,31 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
-        //#region CheckboxDelete
+        #region CheckboxDelete
 
 
-        //private ICommand _checkBoxDel_Checked;
-        //public ICommand CheckBoxDel_Checked
-        //{
-        //    get
-        //    {
-        //        return _checkBoxDel_Checked ?? (_checkBoxDel_Checked = new CommandHandler(() => CheckBoxDel_CheckedAction(), () => CanExecute));
-        //    }
-        //}
+        private ICommand _checkBoxDel_Checked;
+        public ICommand CheckBoxDel_Checked
+        {
+            get
+            {
+                return _checkBoxDel_Checked ?? (_checkBoxDel_Checked = new CommandHandler(() => CheckBoxDel_CheckedAction(), () => CanExecute));
+            }
+        }
 
-        //void CheckBoxDel_CheckedAction()
-        //{
-        //    StaticProp.PropCheckBoxDelete = true;
-        //}
-        //#endregion
+        void CheckBoxDel_CheckedAction()
+        {
+            if (StaticProp.PropCheckBoxDelete == false)
+            {
+                StaticProp.PropCheckBoxDelete = true;
+            }
+            else
+            {
+                StaticProp.PropCheckBoxDelete = false;
+            }
+            
+        }
+        #endregion
 
         #region Button LogButtCommand
 

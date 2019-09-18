@@ -54,26 +54,22 @@ namespace FotoSortIva02.Model
         #endregion
 
 
-        #region CheckBoxDelete
-        private bool checkBoxDelete;
-        public bool CheckBoxDelete
-        {
-            get
-            {
-                StaticProp.PropCheckBoxDelete = true;
-                RaisePropertyChange("CheckBoxDelete");
-                return checkBoxDelete;
-            }
-            
-            set
-            {
-                checkBoxDelete = value;
+        //#region CheckBoxDelete
+        //private bool checkBoxDelete;
+        //public bool CheckBoxDelete
+        //{
+        //    get
+        //    {
+        //        return checkBoxDelete;
+        //    }
+        //    set
+        //    {
+        //        checkBoxDelete = value;
                 
-                
-            }
-        }
+        //    }
+        //}
 
-        #endregion
+        //#endregion
 
         private string textBoxGenShow;
         public string TextBoxGenShow
