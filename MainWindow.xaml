@@ -73,13 +73,13 @@
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
         Text="{Binding TextBoxStatus, Mode=OneWay}" Grid.RowSpan="2"></TextBox>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Delete original files after copying : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Delete orinal files after copying : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
 
         <TextBlock Text="Qnt.files : " Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Margin="1,0.2,0,0" Grid.RowSpan="2" />
 
         <TextBox x:Name="TextBoxFotoCounter" Grid.Row="2" Grid.Column="6"  
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
-        Text="{Binding TextBoxFotoCounter, Mode=OneWay}" Margin="0,0.2,0,19.8" Grid.RowSpan="2"></TextBox>
+        Text="{Binding TextBoxFotoCounter, Mode=OneWay}" Margin="0,0.2,0,19.8" Grid.RowSpan="2" Grid.ColumnSpan="2" ></TextBox>
 
 
         <TextBox x:Name="TextBoxGenShow" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="10"
@@ -100,7 +100,7 @@
             </CheckBox.LayoutTransform>
         </CheckBox>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video to Separate Folder : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video to New Folder : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
 
         <CheckBox  Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="14" VerticalAlignment="Top" Grid.RowSpan="2">
             <CheckBox.LayoutTransform>

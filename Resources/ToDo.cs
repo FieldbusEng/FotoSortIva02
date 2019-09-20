@@ -17,6 +17,10 @@ namespace FotoSortIva02.Resources
         //DateTime result = File.GetCreationTime(file_path);
 
 
+        // if not enough space on the disc
+        // how many space it takes all those files
+        // if will be enough space to
+
         //    - add checkbox to delete files from scanning folder
         //    -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
 

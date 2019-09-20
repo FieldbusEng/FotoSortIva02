@@ -54,7 +54,7 @@ namespace FotoSortIva02.ViewModel
             if (StaticProp.PropCheckBoxDelete)
             {
                 #region In case of CheckBox is True
-                // todo change belo line back
+                // todo change below line back
                 if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
                 //if (StaticProp.ScanningFolderPath != "empty")
                 {
@@ -71,11 +71,11 @@ namespace FotoSortIva02.ViewModel
                     String searchFolder = pathing.InitialFolderPath;
                     var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                         filesNames = GetLongFilesFrom(searchFolder, filters, false);
+
                         // i work with video files separately
                         // make filter for video files
                     var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
                         filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
-
                         CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
 
                         foreach (string item in filesNames)
@@ -112,11 +112,18 @@ namespace FotoSortIva02.ViewModel
                                                 // Copy the file
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
-                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-                                                // Delete original file
-                                                File.Delete(@"C:\Temp\Data\Authors.txt");
-
+                                                File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                
                                             }
+                                            else
+                                            {
+                                                Directory.CreateDirectory(extendedMonthPath);
+                                                string fileToCopy = item;
+                                                string destinationDirectory = extendedMonthPath + "\\";
+                                                File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                
+                                            }
+
                                         }
                                         else
                                         {
@@ -125,9 +132,9 @@ namespace FotoSortIva02.ViewModel
                                             Directory.CreateDirectory(extendedMonthPath);
                                             string fileToCopy = item;
                                             string destinationDirectory = extendedMonthPath + "\\";
-                                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                            File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                            
                                         }
-
 
                                         Thread.Sleep(10);
 
@@ -167,7 +174,7 @@ namespace FotoSortIva02.ViewModel
             }
             else
             {
-                #region In case of CheckBox is False
+                #region In case of CheckBox Delete is False
                 // todo change belo line back
                 if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
                 //if (StaticProp.ScanningFolderPath != "empty")
@@ -185,6 +192,13 @@ namespace FotoSortIva02.ViewModel
                         String searchFolder = pathing.InitialFolderPath;
                         var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                         filesNames = GetLongFilesFrom(searchFolder, filters, false);
+
+                        // i work with video files separately
+                        // make filter for video files
+                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+                        filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
+                        CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
+
                         foreach (string item in filesNames)
                         {
                             ProgressBarStatusValue++;
@@ -222,6 +236,13 @@ namespace FotoSortIva02.ViewModel
                                                 File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
 
                                             }
+                                            else
+                                            {
+                                                Directory.CreateDirectory(extendedMonthPath);
+                                                string fileToCopy = item;
+                                                string destinationDirectory = extendedMonthPath + "\\";
+                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                            }
                                         }
                                         else
                                         {
@@ -250,7 +271,9 @@ namespace FotoSortIva02.ViewModel
                                 // Copy the file
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedNoExif + "\\";
+
                                 File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
+
                             }
                         }
 
