@@ -18,23 +18,16 @@ namespace FotoSortIva02.ViewModel
 {
     public class ViewModelBase : TextBoxesModel
     {
+        string[] filesNames = new string[] { };
+        string[] filesNamesVideo = new string[] { };
 
-       
         #region CTOR
-        string filePath;
         public ViewModelBase()
         {
-            
-            // Delete the log file from the beggining of the Test!
-            string FilePath = String.Format("LOOGGER.txt");
-            filePath = FilePath;
             // read all lines from txt file and put it to List<string>
-            List<string> lines = File.ReadAllLines(filePath).ToList();
             List<string> EmptyList = new List<string> { };
-            // make lines to be empty
-            lines = EmptyList;
-            // write to LOG
-            File.WriteAllLines(filePath, lines);
+            LoggingTxtIva ll0 = new LoggingTxtIva(EmptyList);
+
 
             TextBoxGenShow = "No Pictures choosen";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
@@ -68,21 +61,29 @@ namespace FotoSortIva02.ViewModel
 
                     await Task.Run(() =>
                     {
-                        // Change TextBoxStatus
-                        TextBoxStatus = "Process Started";
-                        // Progress bar visible
-                        ProgressBarStatusVisible = Visibility.Visible;
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Process Started";
+                    // Progress bar visible
+                    ProgressBarStatusVisible = Visibility.Visible;
 
-                        Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+                    Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
 
-                        String searchFolder = pathing.InitialFolderPath;
-                        var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                    String searchFolder = pathing.InitialFolderPath;
+                    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                         filesNames = GetLongFilesFrom(searchFolder, filters, false);
+                        // i work with video files separately
+                        // make filter for video files
+                    var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+                        filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
+
+                        CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
+
                         foreach (string item in filesNames)
                         {
                             ProgressBarStatusValue++;
                             try
                             {
+                                
                                 using (ExifReader reader = new ExifReader(item))
                                 {
                                     // Extract the tag data using the ExifTags enumeration
@@ -91,17 +92,8 @@ namespace FotoSortIva02.ViewModel
                                     {
                                         // Do whatever is required with the extracted information
                                         string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-
-
-                                        //Logger
-                                        // read all lines from txt file and put it to List<string>
-                                        List<string> lines = File.ReadAllLines(filePath).ToList();
-                                        // Add time
-                                        lines.Add(DateTime.UtcNow.ToString());
-                                        // message
-                                        lines.Add(messageToWriteSuccess);
-                                        File.WriteAllLines(filePath, lines);
-
+                                        LoggingTxtIva ll1 = new LoggingTxtIva(messageToWriteSuccess);
+                                                                                
                                         int intmonthOfPic = (Int32)datePictureTaken.Month;
                                         string monthOfPic = "NOMonth";
                                         StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
@@ -110,7 +102,6 @@ namespace FotoSortIva02.ViewModel
                                         string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
                                         string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
                                         //---------------------
-
 
                                         // check if such a year exist in the new folder
                                         if (File.Exists(extendedYearPath))
@@ -138,7 +129,7 @@ namespace FotoSortIva02.ViewModel
                                         }
 
 
-                                        Thread.Sleep(100);
+                                        Thread.Sleep(10);
 
                                     }
                                 }
@@ -146,17 +137,8 @@ namespace FotoSortIva02.ViewModel
                             catch (Exception e)
                             {
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
-
-                                //Logger
-                                // read all lines from txt file and put it to List<string>
-                                List<string> lines = File.ReadAllLines(filePath).ToList();
-                                // Add time
-                                lines.Add(DateTime.UtcNow.ToString());
-                                // message
-                                lines.Add(messageToWriteFailed);
-
-                                File.WriteAllLines(filePath, lines);
-
+                                LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                                
                                 // here i need to create directory in case Exif Data not exist
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
@@ -216,17 +198,8 @@ namespace FotoSortIva02.ViewModel
                                     {
                                         // Do whatever is required with the extracted information
                                         string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-
-
-                                        //Logger
-                                        // read all lines from txt file and put it to List<string>
-                                        List<string> lines = File.ReadAllLines(filePath).ToList();
-                                        // Add time
-                                        lines.Add(DateTime.UtcNow.ToString());
-                                        // message
-                                        lines.Add(messageToWriteSuccess);
-                                        File.WriteAllLines(filePath, lines);
-
+                                        LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
+                                        
                                         int intmonthOfPic = (Int32)datePictureTaken.Month;
                                         string monthOfPic = "NOMonth";
                                         StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
@@ -261,7 +234,7 @@ namespace FotoSortIva02.ViewModel
                                         }
 
 
-                                        Thread.Sleep(100);
+                                        Thread.Sleep(10);
 
                                     }
                                 }
@@ -269,17 +242,8 @@ namespace FotoSortIva02.ViewModel
                             catch (Exception e)
                             {
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
-
-                                //Logger
-                                // read all lines from txt file and put it to List<string>
-                                List<string> lines = File.ReadAllLines(filePath).ToList();
-                                // Add time
-                                lines.Add(DateTime.UtcNow.ToString());
-                                // message
-                                lines.Add(messageToWriteFailed);
-
-                                File.WriteAllLines(filePath, lines);
-
+                                LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+                               
                                 // here i need to create directory in case Exif Data not exist
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
@@ -337,6 +301,32 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
+        #region CheckBox  Video  Separate   Folder
+
+
+        private ICommand _CheckBoxVideoSeparateFolder;
+        public ICommand CheckBoxVideoSeparateFolder
+        {
+            get
+            {
+                return _CheckBoxVideoSeparateFolder ?? (_CheckBoxVideoSeparateFolder = new CommandHandler(() => CheckBoxVideoSeparateFolder_Action(), () => CanExecute));
+            }
+        }
+
+        void CheckBoxVideoSeparateFolder_Action()
+        {
+            if (StaticProp.CheckBoxVideoSeparateFolder == false)
+            {
+                StaticProp.CheckBoxVideoSeparateFolder = true;
+            }
+            else
+            {
+                StaticProp.CheckBoxVideoSeparateFolder = false;
+            }
+
+        }
+        #endregion
+
         #region Button LogButtCommand
 
         private ICommand _logButtCommand;
@@ -359,8 +349,6 @@ namespace FotoSortIva02.ViewModel
             Process.Start(path);
         }
         #endregion
-
-
 
 
         #region Button CreateButtCommand
@@ -409,7 +397,7 @@ namespace FotoSortIva02.ViewModel
             }
         }
      
-        string[] filesNames = new string[] { };
+
         void ScanButtAction()
         {
             // Change TextBoxStatus
@@ -430,7 +418,9 @@ namespace FotoSortIva02.ViewModel
                 Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
 
                 String searchFolder = pathing.InitialFolderPath;
-                var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg",
+                    "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+
                 filesNames = GetShortFilesFrom(searchFolder, filters, false);
                 TextBoxFotoCounter = TextBoxFotoCounterMethod<string>(filesNames);
                 ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);

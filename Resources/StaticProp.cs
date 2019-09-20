@@ -8,6 +8,9 @@ namespace FotoSortIva02.Resources
 {
     public static class StaticProp
     {
+        // this is the file path of the assembly
+        public static string FilePath = String.Format("LOOGGER.txt");
+
         // string where i store the path of the folder where all creation will be done
         public static string CreateFolderPath = "empty";
         // string where i store the path of the folder where we scan for jpg files 
@@ -42,7 +45,8 @@ namespace FotoSortIva02.Resources
 
         // Static bool for CheckBoxDelete
         public static bool PropCheckBoxDelete = false;
-
+        // Static bool for CheckBoxVideoSeparateFolder
+        public static bool CheckBoxVideoSeparateFolder = false;
     }
 
        

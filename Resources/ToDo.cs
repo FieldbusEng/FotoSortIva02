@@ -9,15 +9,21 @@ namespace FotoSortIva02.Resources
     class ToDo
     {
 
-        //to implement:
+        ////------------------Tasks-------------------------------
         //    - Sort mp4 files as well
+        // it will copy Video files to separate folder (class CopyVideoFiles)
+        // if you just want the date the file was created (What you see in Windows Explorer) you can just use:
+        //string file_path = @"C:\20121119_125550.avi"; //Add the correct path
+        //DateTime result = File.GetCreationTime(file_path);
+
+
         //    - add checkbox to delete files from scanning folder
         //    -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
 
-
+        //------------------General Questions----------------------
         //16.09.2019 To learn Xaml 
         //how to link path to resource dic in the folder
         //making Property="Effect" , how to link Value to Resource Dictionary
-        
+
     }
 }

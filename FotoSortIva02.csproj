@@ -65,6 +65,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\CopyVideoFiles.cs" />
+    <Compile Include="Model\LoggingTxtIva.cs" />
     <Compile Include="Model\NotifyPropertyChanged.cs" />
     <Compile Include="Model\Pathes.cs" />
     <Compile Include="Model\TextBoxesModel.cs" />
