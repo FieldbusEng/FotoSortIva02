@@ -152,14 +152,14 @@ namespace FotoSortIva02.ViewModel
                                 // Copy the file
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedNoExif + "\\";
-                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
+                                File.Move(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
                             }
                         }
 
                     });
 
                     // Change TextBoxStatus
-                    TextBoxStatus = "Process Finished!";
+                   TextBoxStatus = "Process Finished!";
 
                 }
                 else

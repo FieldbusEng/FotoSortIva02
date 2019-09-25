@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FotoSortIva02.Model
@@ -36,6 +37,7 @@ namespace FotoSortIva02.Model
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedFolderForVideo + "\\";
                                 File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                Thread.Sleep(200);
                                 // Delete original file
                                 File.Delete(fileToCopy);
 
@@ -47,6 +49,7 @@ namespace FotoSortIva02.Model
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedFolderForVideo + "\\";
                                 File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                Thread.Sleep(200);
                                 // Delete original file
                                 File.Delete(fileToCopy);
                             }
