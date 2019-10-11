@@ -119,6 +119,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\Fonts\" />
     <Folder Include="Resources\Pics\" />
   </ItemGroup>
   <ItemGroup>

@@ -56,19 +56,19 @@
 
         <TextBlock Style="{DynamicResource StyleTextBlockOne}" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="5" Grid.Column="3" Text="Foto Sorting App" FontSize="22" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0,0,19.8" />
 
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="5" Text="Location of your Files" FontSize="16" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0.2,0,19.8" Grid.RowSpan="2" />
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="5" Text="List of files" FontSize="16" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0.2,0,19.8" Grid.RowSpan="2" />
 
-        <Button Command="{Binding ScanButtCommand}" Grid.Column="0" Grid.Row="4" Content="Scan Folder" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
+        <Button Command="{Binding ScanButtCommand}" Grid.Column="0" Grid.Row="4" Content="From where" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
         <TextBox x:Name="TextBoxScanFolder" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
         Text="{Binding TextBoxScanFolder}" Grid.RowSpan="2"></TextBox>
 
-        <Button Command="{Binding CreateButtCommand}" Grid.Column="0" Grid.Row="6" Content="New Folder" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
+        <Button Command="{Binding CreateButtCommand}" Grid.Column="0" Grid.Row="6" Content="Into here" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
         <TextBox x:Name="TextBoxNewFolder" Grid.Row="6" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
         Text="{Binding TextBoxNewFolder}" Grid.RowSpan="2"></TextBox>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Status of App : " Grid.Column="0" HorizontalAlignment="Right" Grid.Row="8" Grid.ColumnSpan="3" Margin="-1,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Status : " Grid.Column="0" HorizontalAlignment="Right" Grid.Row="8" Grid.ColumnSpan="3" Margin="-1,0.2,0,0" Grid.RowSpan="2" />
         <TextBox x:Name="TextBoxStatus" Grid.Row="8" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
         Text="{Binding TextBoxStatus, Mode=OneWay}" Grid.RowSpan="2"></TextBox>
@@ -87,12 +87,12 @@
         Text="{Binding TextBoxGenShow, Mode=OneWay}"
         VerticalScrollBarVisibility="Auto" Margin="0,0.2,0,19.8"></TextBox>
 
-        <Button Style="{DynamicResource StyleButtonStart}"  Command="{Binding StartButtCommand}" Grid.Column="7" Grid.Row="13" Content="StartProcess" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
+        <Button Style="{DynamicResource StyleButtonStart}"  Command="{Binding StartButtCommand}" Grid.Column="7" Grid.Row="13" Content="START" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
 
         <Button Command="{Binding LogButtCommand}" Grid.Column="5"
                 Grid.Row="13" Content="Log file" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
 
-        <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="Exit"  />
+        <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="EXIT"  />
 
         <CheckBox  Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="12" VerticalAlignment="Top" Grid.RowSpan="2">
             <CheckBox.LayoutTransform>
@@ -100,7 +100,7 @@
             </CheckBox.LayoutTransform>
         </CheckBox>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video to New Folder : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video as well : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
 
         <CheckBox  Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="14" VerticalAlignment="Top" Grid.RowSpan="2">
             <CheckBox.LayoutTransform>

@@ -54,7 +54,7 @@
                 <Setter Property="Foreground" Value="Azure" />
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontStretch" Value="UltraExpanded" />
-                <Setter Property="FontStyle" Value="Italic"/>
+                <Setter Property="FontStyle" Value=/>
                 <Setter Property="FontWeight" Value="UltraBold" />
                 <Setter Property="LineHeight" Value="Auto"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
