@@ -54,7 +54,8 @@
                 <Setter Property="Foreground" Value="Azure" />
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontStretch" Value="UltraExpanded" />
-                <Setter Property="FontStyle" Value=/>
+                <Setter Property="FontStyle" Value="Normal"/>
+                <Setter Property="FontFamily" Value="Lucida Sans"/>
                 <Setter Property="FontWeight" Value="UltraBold" />
                 <Setter Property="LineHeight" Value="Auto"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
@@ -62,12 +63,13 @@
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="Typography.NumeralStyle" Value="OldStyle"/>
                 <Setter Property="Typography.SlashedZero" Value="True"/>
-
+                <!--
                 <Setter Property="Effect">
                     <Setter.Value>
                         <DropShadowEffect Direction="315" Opacity="0.5" ShadowDepth="7"/>
                     </Setter.Value>
                 </Setter>
+                -->
 
 
 

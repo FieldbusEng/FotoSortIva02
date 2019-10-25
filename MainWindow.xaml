@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:FotoSortIva02"
         mc:Ignorable="d"
         xmlns:VM="clr-namespace:FotoSortIva02.ViewModel"
-        Title="Foto Sorting Ver.02" Height="480" Width="640"
+        Title="Foto Sorting Ver.02" 
         WindowStartupLocation="CenterScreen"
-        Background="DimGray" d:DesignWidth="653.227"
+        Background="#FF2D2D30" 
         x:Name="IvanWindow">
-    <Grid Margin="2,0,1.6,0.4" HorizontalAlignment="Left" Width="638">
+    <Grid Margin="2,0,1.6,0.4" HorizontalAlignment="Left"  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8.616" />
             <ColumnDefinition Width="38.146"/>
@@ -19,10 +19,9 @@
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="14*" />
-            <ColumnDefinition Width="15*"/>
+
+            <ColumnDefinition Width="*"/>
+
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -38,9 +37,9 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -52,57 +51,57 @@
         Visibility="{Binding ProgressBarStatusVisible}"
         Minimum="0"
         Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="3"
-                     Margin="0,0.2,10,19.8" Grid.RowSpan="2" />
+                     Margin="0,0,10,0" />
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="5" Grid.Column="3" Text="Foto Sorting App" FontSize="22" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0,0,19.8" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Grid.Column="3" Text="Foto Sorting App" FontSize="22" FontWeight="Bold" Foreground="#FFF1F1F1" Margin="0.184,0,-0.184,19" VerticalAlignment="Stretch" />
 
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="5" Text="List of files" FontSize="16" FontWeight="Bold" Foreground="#FF0C0811" Margin="0,0.2,0,19.8" Grid.RowSpan="2" />
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="5" Text="List of files" FontSize="16" FontWeight="Bold" Foreground="#FFF1F1F1" />
 
-        <Button Command="{Binding ScanButtCommand}" Grid.Column="0" Grid.Row="4" Content="From where" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
-        <TextBox x:Name="TextBoxScanFolder" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
+        <Button Command="{Binding ScanButtCommand}" Grid.Column="0" Grid.Row="4" Content="From where" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxScanFolder" Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="0,0,10,0"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
-        Text="{Binding TextBoxScanFolder}" Grid.RowSpan="2"></TextBox>
+        Text="{Binding TextBoxScanFolder}"/>
 
-        <Button Command="{Binding CreateButtCommand}" Grid.Column="0" Grid.Row="6" Content="Into here" Grid.ColumnSpan="3" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
-        <TextBox x:Name="TextBoxNewFolder" Grid.Row="6" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
+        <Button Command="{Binding CreateButtCommand}" Grid.Column="0" Grid.Row="6" Content="Into here" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxNewFolder" Grid.Row="6" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0,10,0"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
-        Text="{Binding TextBoxNewFolder}" Grid.RowSpan="2"></TextBox>
+        Text="{Binding TextBoxNewFolder}"/>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Status : " Grid.Column="0" HorizontalAlignment="Right" Grid.Row="8" Grid.ColumnSpan="3" Margin="-1,0.2,0,0" Grid.RowSpan="2" />
-        <TextBox x:Name="TextBoxStatus" Grid.Row="8" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0.2,10,19.8"
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Status : " Grid.Column="2" HorizontalAlignment="Right" Grid.Row="8" Grid.ColumnSpan="2" Margin="0,0,99,0" />
+        <TextBox x:Name="TextBoxStatus" Grid.Row="8" Grid.Column="3"  Grid.ColumnSpan="2" Margin="0,0,10,0"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto"
-        Text="{Binding TextBoxStatus, Mode=OneWay}" Grid.RowSpan="2"></TextBox>
+        Text="{Binding TextBoxStatus, Mode=OneWay}"/>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Delete orinal files after copying : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Delete orinal files after copying : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="12" Grid.ColumnSpan="5" Margin="3,0,0,0" />
 
-        <TextBlock Text="Qnt.files : " Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Margin="1,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Text="Qnt.files : " Grid.Column="5" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Top" FontSize="15" Foreground="#FFF1F1F1" />
 
         <TextBox x:Name="TextBoxFotoCounter" Grid.Row="2" Grid.Column="6"  
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
-        Text="{Binding TextBoxFotoCounter, Mode=OneWay}" Margin="0,0.2,0,19.8" Grid.RowSpan="2" Grid.ColumnSpan="2" ></TextBox>
+        Text="{Binding TextBoxFotoCounter, Mode=OneWay}" Grid.ColumnSpan="3" />
 
 
-        <TextBox x:Name="TextBoxGenShow" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="10"
+        <TextBox x:Name="TextBoxGenShow" Grid.Row="4" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="9"
         TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled"
         Text="{Binding TextBoxGenShow, Mode=OneWay}"
-        VerticalScrollBarVisibility="Auto" Margin="0,0.2,0,19.8"></TextBox>
+        VerticalScrollBarVisibility="Auto"/>
 
-        <Button Style="{DynamicResource StyleButtonStart}"  Command="{Binding StartButtCommand}" Grid.Column="7" Grid.Row="13" Content="START" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
+        <Button Style="{DynamicResource StyleButtonStart}"  Command="{Binding StartButtCommand}" Grid.Column="7" Grid.Row="13" Content="START" Grid.ColumnSpan="2" HorizontalAlignment="Right"  MinWidth="120"/>
 
         <Button Command="{Binding LogButtCommand}" Grid.Column="5"
-                Grid.Row="13" Content="Log file" Margin="0,0.2,0,19.8" Grid.RowSpan="2"/>
+                Grid.Row="13" Content="Log file"/>
 
-        <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="EXIT"  />
+        <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="EXIT" Grid.ColumnSpan="2"  HorizontalAlignment="Right"  MinWidth="120"/>
 
-        <CheckBox  Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="12" VerticalAlignment="Top" Grid.RowSpan="2">
+        <CheckBox  Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Top">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
             </CheckBox.LayoutTransform>
         </CheckBox>
 
-        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video as well : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="5" Margin="3,0.2,0,0" Grid.RowSpan="2" />
+        <TextBlock Style="{DynamicResource StyleTextBlockOne}" Text="Video as well : " Grid.Column="0" HorizontalAlignment="Left" Grid.Row="14" Grid.ColumnSpan="4" Margin="3,0,0,0" />
 
-        <CheckBox  Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Margin="50,0,0,0" Grid.Row="14" VerticalAlignment="Top" Grid.RowSpan="2">
+        <CheckBox  Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Top">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
             </CheckBox.LayoutTransform>
