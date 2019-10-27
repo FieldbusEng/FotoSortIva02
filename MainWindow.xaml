@@ -53,6 +53,17 @@
         Grid.Row="9" Grid.ColumnSpan="2" Grid.Column="3"
                      Margin="0,0,10,0" />
 
+        <Menu Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  Background="Transparent">
+            <MenuItem Header="File" Foreground="Azure">
+                <MenuItem Header="Info" Foreground="Black"/>
+                <MenuItem Header="Exit" Foreground="Black" Command="{Binding ExitButtCommand}" />
+            </MenuItem>
+            <MenuItem Header="Design" Foreground="Azure">
+                <MenuItem Header="Old Style" Foreground="Black" Command="{Binding OldStyleCommand}" />
+                <MenuItem Header="Grid Design" Foreground="Black" Command="{Binding GridStyleCommand}" />
+                </MenuItem>
+        </Menu>
+
         <TextBlock Style="{DynamicResource StyleTextBlockOne}" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="5" Grid.Column="3" Text="Foto Sorting App" FontSize="22" FontWeight="Bold" Foreground="#FFF1F1F1" Margin="0.184,0,-0.184,19" VerticalAlignment="Stretch" />
 
         <TextBlock Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="5" Text="List of files" FontSize="16" FontWeight="Bold" Foreground="#FFF1F1F1" />

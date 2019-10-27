@@ -1,0 +1,157 @@
+﻿<Window x:Class="FotoSortIva02.Main_Grid_Style"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FotoSortIva02"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Foto Sorting App" 
+                   VerticalAlignment="Stretch" HorizontalAlignment="Center" 
+                   FontSize="22" FontWeight="Bold" Foreground="Black"/>
+        
+        <Menu Margin="10,0,600,00" Background="Transparent" >
+            <MenuItem Header="File">
+                <MenuItem Header="Info"></MenuItem>
+                <MenuItem Header="Exit"  Command="{Binding ExitButtCommand}"/>
+            </MenuItem>
+
+            <MenuItem Header="Design">
+                <MenuItem Header="Old Style" Command="{Binding OldStyleCommand}"></MenuItem>
+                <MenuItem Header="Grid Design" Command="{Binding GridStyleCommand}"></MenuItem>
+            </MenuItem>
+
+
+        </Menu>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <!-- первая инфа кнопка и текст -->
+                <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding ScanButtCommand}" Content="From where" Margin="20,20,20,20"/>
+                    <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding CreateButtCommand}" Content="Into here" Margin="20,20,20,20"/>
+
+                    <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height ="1*"/>
+                            <RowDefinition Height ="1*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                        <ProgressBar Grid.Row="1" Value="{Binding ProgressBarStatusVal}" 
+                           Maximum="{Binding ProgressBarStatusMax}"
+                           Visibility="{Binding ProgressBarStatusVisible}"
+                           Minimum="0"  Margin="10,0,20,40" />
+
+                    </Grid>
+                    <TextBlock Text= "Status : " Margin="20,20,20,20" />
+                    <!--<TextBlock Style="{DynamicResource StyleTextBlockOne}" Text= "Status : " Margin="20,20,20,20" /> -->
+                </Grid>
+
+                <Grid Grid.Row="3">
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Delete orinal files after copying : "
+                               HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
+                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Video as Well : "
+                               HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
+
+                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+
+                </Grid>
+
+
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Qntity of files : " Grid.Row="0" Grid.Column="0"  
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"  />
+
+                    <TextBox x:Name="TextBoxFotoCounter" Grid.Row="0" Grid.Column="0"  
+                            TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             Text="Empty" Margin="250,0,30,0"/>
+                    <!--Text="{Binding TextBoxFotoCounter, Mode=OneWay}"/>-->
+                </Grid>
+
+                <TextBox x:Name="TextBoxGenShow"  Grid.Row="1" Grid.Column="0" 
+                TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                Text="{Binding TextBoxGenShow, Mode=OneWay}"
+                Margin="20,20,30,20"
+                />
+
+                <Button Content="START"
+                        Command="{Binding StartButtCommand}"
+                        Grid.Column="0" Grid.Row="2" 
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Margin="20,10,30,10" Padding="10,3,10,3"/>
+
+                <Button Content="Log file"
+                    Command="{Binding LogButtCommand}"
+                    Grid.Column="0" Grid.Row="2"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Margin="20,10,0,10" Padding="10,3,10,3"/>
+
+
+
+
+            </Grid>
+
+        </Grid>
+
+
+
+
+
+    </Grid>
+</Window>

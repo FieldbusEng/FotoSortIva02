@@ -18,12 +18,33 @@ namespace FotoSortIva02.ViewModel
 {
     public class ViewModelBase : TextBoxesModel
     {
+        #region Singleton Realisation
+        // this class will be realized as Singleton, Because it will be used same in different designes of Windowses "MainWindow.xaml" <> "Main_Grid_Style.xaml"
+        private static ViewModelBase _instance;
+        public static ViewModelBase Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ViewModelBase();
+                }
+                return _instance;
+            }
+        }
+
+        public string name_singleton { get; set; }
+        #endregion
+
+
         string[] filesNames = new string[] { };
         string[] filesNamesVideo = new string[] { };
 
         #region CTOR
-        public ViewModelBase()
+        private ViewModelBase()
         {
+
+
             // read all lines from txt file and put it to List<string>
             List<string> EmptyList = new List<string> { };
             LoggingTxtIva ll0 = new LoggingTxtIva(EmptyList);
@@ -508,6 +529,61 @@ namespace FotoSortIva02.ViewModel
 
 
         #endregion
+
+        #region Button OldStyleCommand
+
+        private ICommand _oldStyleCommand;
+        public ICommand OldStyleCommand
+        {
+            get
+            {
+                return _oldStyleCommand ?? (_oldStyleCommand = new CommandHandler(() => OldStyleAction(), () => CanExecute));
+            }
+        }
+
+        void OldStyleAction()
+        {
+            if (Helper.IsWindowOpen<MainWindow>()) // Check if any Window of a certain Type(mainWindow) or if a Window with a certain name is open
+            {
+                System.Windows.MessageBox.Show("Window MainWindow already open", "Notify",0);
+            }
+            else
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                App.Current.Windows[0].Close();
+            }
+        }
+        #endregion
+
+        #region Button GridStyleCommand
+
+        private ICommand _gridStyleCommand;
+        public ICommand GridStyleCommand
+        {
+            get
+            {
+                return _gridStyleCommand ?? (_gridStyleCommand = new CommandHandler(() => GridStyleCommandAction(), () => CanExecute));
+            }
+        }
+
+        void GridStyleCommandAction()
+        {
+            if (Helper.IsWindowOpen<Main_Grid_Style>()) // Check if any Window of a certain Type(mainWindow) or if a Window with a certain name is open
+            {
+                System.Windows.MessageBox.Show("Window Main_Grid_Style already open", "Notification", 0);
+            }
+            else
+            {
+                
+                Main_Grid_Style mainWindow = new Main_Grid_Style();
+                mainWindow.Show();
+                App.Current.Windows[0].Close();
+            }
+        }
+        #endregion
+
+
         void TextGenShowMethod(string income)
         {
             TextBoxGenShow = income;

@@ -11,25 +11,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FotoSortIva02
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Main_Grid_Style.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Main_Grid_Style : Window
     {
-        public MainWindow()
+        public Main_Grid_Style()
         {
             InitializeComponent();
 
             var instance = ViewModelBase.Instance;
-            instance.name_singleton = "MainWindow singleton";
+            //instance.name_singleton = "Main_Grid_Style singleton";
 
-            DataContext =instance;
-
+            DataContext = instance;
         }
     }
 }
