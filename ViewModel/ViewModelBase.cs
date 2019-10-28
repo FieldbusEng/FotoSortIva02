@@ -644,20 +644,20 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
-        #region InfoCloseButtCommand
-        private ICommand _infoCloseButtCommand;
-        public ICommand InfoCloseButtCommand
-        {
-            get
-            {
-                return _infoCloseButtCommand ?? (_infoCloseButtCommand = new CommandHandler(() => InfoCloseButtCommandAction(), () => CanExecute));
-            }
-        }
+        //#region InfoCloseButtCommand
+        //private ICommand _infoCloseButtCommand;
+        //public ICommand InfoCloseButtCommand
+        //{
+        //    get
+        //    {
+        //        return _infoCloseButtCommand ?? (_infoCloseButtCommand = new CommandHandler(() => InfoCloseButtCommandAction(), () => CanExecute));
+        //    }
+        //}
 
-        void InfoCloseButtCommandAction()
-        {
-            App.Current.Windows[1].Close();
-        }
-        #endregion
+        //void InfoCloseButtCommandAction()
+        //{
+        //    System.Windows.Application.Current.Windows[1].Close();
+        //}
+        //#endregion
     }
 }

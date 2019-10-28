@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using FotoSortIva02.Resources;
+using FotoSortIva02.ViewModel;
+using System.Windows;
 
 namespace FotoSortIva02
 {
@@ -10,6 +12,13 @@ namespace FotoSortIva02
         public InfoWindow()
         {
             InitializeComponent();
+            TextBoxInfo.Text = StaticProp.initTextBoxInfo;
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

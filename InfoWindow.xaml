@@ -22,6 +22,9 @@
                 TextWrapping="Wrap" AcceptsReturn="True"
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto"
+                IsReadOnly="True"
+                FontFamily="Lucida Sans"
+                FontSize="20"
                 Text="{Binding TextBoxInfo, Mode=OneWay}"
                 Margin="50,30,50,30"
         />
@@ -32,8 +35,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 MinWidth="100"
-                Margin ="50,0,50,0"
-                Command="{Binding InfoCloseButtCommand}"/>
+                Margin ="50,0,50,0" Click="Button_Click"
+                />
 
 
     </Grid>
