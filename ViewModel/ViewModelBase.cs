@@ -394,7 +394,6 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
-
         #region Button CreateButtCommand
         private ICommand _createButtCommand;
         public ICommand CreateButtCommand
@@ -616,6 +615,48 @@ namespace FotoSortIva02.ViewModel
             // add some safety not possible to close while files not copied...
             App.Current.Shutdown();
 
+        }
+        #endregion
+
+        #region Binding InfoButtCommand
+        private ICommand _infoButtCommand;
+        public ICommand InfoButtCommand
+        {
+            get
+            {
+                return _infoButtCommand ?? (_infoButtCommand = new CommandHandler(() => InfoButtCommandAction(), () => CanExecute));
+            }
+        }
+
+        void InfoButtCommandAction()
+        {
+            if (Helper.IsWindowOpen<InfoWindow>()) // Check if any Window of a certain Type(mainWindow) or if a Window with a certain name is open
+            {
+                System.Windows.MessageBox.Show("Window Info already open", "Notification", 0);
+            }
+            else
+            {
+
+                InfoWindow infoWindow = new InfoWindow();
+                infoWindow.Show();
+
+            }
+        }
+        #endregion
+
+        #region InfoCloseButtCommand
+        private ICommand _infoCloseButtCommand;
+        public ICommand InfoCloseButtCommand
+        {
+            get
+            {
+                return _infoCloseButtCommand ?? (_infoCloseButtCommand = new CommandHandler(() => InfoCloseButtCommandAction(), () => CanExecute));
+            }
+        }
+
+        void InfoCloseButtCommandAction()
+        {
+            App.Current.Windows[1].Close();
         }
         #endregion
     }

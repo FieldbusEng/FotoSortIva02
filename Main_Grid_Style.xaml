@@ -18,7 +18,7 @@
         
         <Menu Margin="10,0,600,00" Background="Transparent" >
             <MenuItem Header="File">
-                <MenuItem Header="Info"></MenuItem>
+                <MenuItem Header="Info" Command="{Binding InfoButtCommand}"/>
                 <MenuItem Header="Exit"  Command="{Binding ExitButtCommand}"/>
             </MenuItem>
 

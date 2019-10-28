@@ -126,5 +126,16 @@ namespace FotoSortIva02.Model
                 RaisePropertyChange("TextBoxStatus");
             }
         }
+        private string textBoxInfo;
+        public string TextBoxInfo
+        {
+            get { return textBoxInfo; }
+            set
+            {
+                textBoxInfo = value;
+                RaisePropertyChange("TextBoxInfo");
+            }
+        }
+
     }
 }

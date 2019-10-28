@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InfoWindow.xaml.cs">
+      <DependentUpon>InfoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Main_Grid_Style.xaml.cs">
       <DependentUpon>Main_Grid_Style.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
     <Compile Include="ViewModel\CommandHandler.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="Dictionary1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

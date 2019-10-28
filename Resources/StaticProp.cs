@@ -17,9 +17,10 @@ namespace FotoSortIva02.Resources
         public static string ScanningFolderPath = "empty";
 
         // to show text in text boxes
-        public static string initTextBoxScanFolder = "empty";
-        public static string initTextBoxNewFolder = "empty";
+        public static string initTextBoxScanFolder = "Empty Scan";
+        public static string initTextBoxNewFolder = "Empty New folder";
         public static string initTextBoxStatus = "Preparation";
+        public static string initTextBoxInfo = " All rights Reserved 2019. Free Software. Contact information: fieldbusff02@gmail.com ";
         // ------------------------
 
         public static string January = "January";
