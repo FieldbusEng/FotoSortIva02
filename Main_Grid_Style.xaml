@@ -115,13 +115,15 @@
 
                 <Grid Grid.Row="0">
                     <TextBlock Text="Qntity of files : " Grid.Row="0" Grid.Column="0"  
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"  />
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="30,0,0,0"/>
 
                     <TextBox x:Name="TextBoxFotoCounter" Grid.Row="0" Grid.Column="0"  
-                            TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                             Text="Empty" Margin="250,0,30,0"/>
-                    <!--Text="{Binding TextBoxFotoCounter, Mode=OneWay}"/>-->
+                            TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Right" VerticalAlignment="Center"
+                             Text="{Binding TextBoxFotoCounter, Mode=OneWay}" 
+                             Margin="100,0,30,0" MinWidth="100"
+                             />
                 </Grid>
 
                 <TextBox x:Name="TextBoxGenShow"  Grid.Row="1" Grid.Column="0" 
@@ -130,17 +132,17 @@
                 Margin="20,20,30,20"
                 />
 
-                <Button Content="START"
+                <Button Content="Start"
                         Command="{Binding StartButtCommand}"
                         Grid.Column="0" Grid.Row="2" 
                         HorizontalAlignment="Right" VerticalAlignment="Center"
-                        Margin="20,10,30,10" Padding="10,3,10,3"/>
+                        Margin="20,10,30,10" MinHeight="30" MinWidth="60"/>
 
                 <Button Content="Log file"
                     Command="{Binding LogButtCommand}"
                     Grid.Column="0" Grid.Row="2"
                     HorizontalAlignment="Left" VerticalAlignment="Center"
-                    Margin="20,10,0,10" Padding="10,3,10,3"/>
+                    Margin="20,10,0,10" MinHeight="30" MinWidth="60"/>
 
 
 

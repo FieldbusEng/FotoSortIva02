@@ -9,7 +9,10 @@
         Title="Foto Sorting Ver.02" 
         WindowStartupLocation="CenterScreen"
         Background="#FF2D2D30" 
-        x:Name="IvanWindow">
+        x:Name="IvanWindow"
+        Icon="gioconda.ico"
+        Height="450" Width="700"
+        >
     <Grid Margin="2,0,1.6,0.4" HorizontalAlignment="Left"  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8.616" />
