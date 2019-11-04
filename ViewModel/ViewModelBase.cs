@@ -70,32 +70,44 @@ namespace FotoSortIva02.ViewModel
             }
         }
 
-        async void StartButtAction()
+
+        void StartButtAction()
         {
-            if (StaticProp.PropCheckBoxDelete)
+            // here i will call second Thread
+            ThreadStart secondPotok = new ThreadStart(StartButtonMethod);
+            Thread potok = new Thread(secondPotok);
+            potok.Start();
+
+
+        }
+
+        object block = new object();
+        void StartButtonMethod()
+        {
+            lock (block)
             {
-                #region In case of CheckBox is True
-                // todo change below line back
-                if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                //if (StaticProp.ScanningFolderPath != "empty")
+                if (StaticProp.PropCheckBoxDelete)
                 {
-
-                    await Task.Run(() =>
+                    #region In case of CheckBox is True
+                    // todo change below line back
+                    if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+                    //if (StaticProp.ScanningFolderPath != "empty")
                     {
-                    // Change TextBoxStatus
-                    TextBoxStatus = "Process Started";
-                    // Progress bar visible
-                    ProgressBarStatusVisible = Visibility.Visible;
 
-                    Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Process Started";
+                        // Progress bar visible
+                        ProgressBarStatusVisible = Visibility.Visible;
 
-                    String searchFolder = pathing.InitialFolderPath;
-                    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                        Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+
+                        String searchFolder = pathing.InitialFolderPath;
+                        var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                         filesNames = GetLongFilesFrom(searchFolder, filters, false);
 
                         // i work with video files separately
                         // make filter for video files
-                    var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
                         filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
                         CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
 
@@ -104,7 +116,7 @@ namespace FotoSortIva02.ViewModel
                             ProgressBarStatusValue++;
                             try
                             {
-                                
+
                                 using (ExifReader reader = new ExifReader(item))
                                 {
                                     // Extract the tag data using the ExifTags enumeration
@@ -114,7 +126,7 @@ namespace FotoSortIva02.ViewModel
                                         // Do whatever is required with the extracted information
                                         string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
                                         LoggingTxtIva ll1 = new LoggingTxtIva(messageToWriteSuccess);
-                                                                                
+
                                         int intmonthOfPic = (Int32)datePictureTaken.Month;
                                         string monthOfPic = "NOMonth";
                                         StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
@@ -134,7 +146,7 @@ namespace FotoSortIva02.ViewModel
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
                                                 File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-                                                
+
                                             }
                                             else
                                             {
@@ -142,7 +154,7 @@ namespace FotoSortIva02.ViewModel
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
                                                 File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-                                                
+
                                             }
 
                                         }
@@ -154,7 +166,7 @@ namespace FotoSortIva02.ViewModel
                                             string fileToCopy = item;
                                             string destinationDirectory = extendedMonthPath + "\\";
                                             File.Move(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
-                                            
+
                                         }
 
                                         Thread.Sleep(10);
@@ -166,7 +178,7 @@ namespace FotoSortIva02.ViewModel
                             {
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
                                 LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
-                                
+
                                 // here i need to create directory in case Exif Data not exist
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
@@ -177,32 +189,31 @@ namespace FotoSortIva02.ViewModel
                             }
                         }
 
-                    });
 
-                    // Change TextBoxStatus
-                   TextBoxStatus = "Process Finished!";
 
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Process Finished!";
+
+                    }
+                    else
+                    {
+                        //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Folders not determined";
+
+                    }
+
+                    #endregion
                 }
                 else
                 {
-                    //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-                    // Change TextBoxStatus
-                    TextBoxStatus = "Folders not determined";
-
-                }
-
-                #endregion
-            }
-            else
-            {
-                #region In case of CheckBox Delete is False
-                // todo change belo line back
-                if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                //if (StaticProp.ScanningFolderPath != "empty")
-                {
-
-                    await Task.Run(() =>
+                    #region In case of CheckBox Delete is False
+                    // todo change belo line back
+                    if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+                    //if (StaticProp.ScanningFolderPath != "empty")
                     {
+
+
                         // Change TextBoxStatus
                         TextBoxStatus = "Process Started";
                         // Progress bar visible
@@ -234,7 +245,7 @@ namespace FotoSortIva02.ViewModel
                                         // Do whatever is required with the extracted information
                                         string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
                                         LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
-                                        
+
                                         int intmonthOfPic = (Int32)datePictureTaken.Month;
                                         string monthOfPic = "NOMonth";
                                         StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
@@ -285,7 +296,7 @@ namespace FotoSortIva02.ViewModel
                             {
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
                                 LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
-                               
+
                                 // here i need to create directory in case Exif Data not exist
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
@@ -298,25 +309,27 @@ namespace FotoSortIva02.ViewModel
                             }
                         }
 
-                    });
-                    // Change TextBoxStatus
-                    TextBoxStatus = "Process Finished!";
+
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Process Finished!";
 
 
 
+                    }
+                    else
+                    {
+                        //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                        // Change TextBoxStatus
+                        TextBoxStatus = "Folders not determined";
+
+                    }
+
+                    #endregion
                 }
-                else
-                {
-                    //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-                    // Change TextBoxStatus
-                    TextBoxStatus = "Folders not determined";
-
-                }
-
-                #endregion
             }
-
+            
         }
+
         #endregion
 
         #region CheckboxDelete
