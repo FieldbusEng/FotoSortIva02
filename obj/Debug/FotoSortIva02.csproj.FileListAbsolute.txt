@@ -44,3 +44,5 @@ C:\Users\pk\Documents\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.exe
 C:\Users\pk\Documents\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.pdb
 C:\Users\pk\Documents\GitHub\FotoSortIva02\obj\Debug\InfoWindow.g.cs
 C:\Users\pk\Documents\GitHub\FotoSortIva02\obj\Debug\InfoWindow.baml
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\InfoWindow.g.cs
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\InfoWindow.baml

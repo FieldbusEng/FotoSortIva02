@@ -24,7 +24,7 @@
                 VerticalScrollBarVisibility="Auto"
                 IsReadOnly="True"
                 FontFamily="Lucida Sans"
-                FontSize="20"
+                FontSize="16"
                 Text="{Binding TextBoxInfo, Mode=OneWay}"
                 Margin="50,30,50,30"
         />

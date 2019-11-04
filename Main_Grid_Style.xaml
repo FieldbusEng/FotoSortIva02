@@ -62,7 +62,7 @@
                     </Grid.ColumnDefinitions>
                     <Button Command="{Binding CreateButtCommand}" Content="Into here" Margin="20,20,20,20"/>
 
-                    <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                    <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxNewFolder}" Margin="10,15,20,15" />
                 </Grid>
 
                 <Grid Grid.Row="2" Grid.ColumnSpan="2">
@@ -75,7 +75,7 @@
                             <RowDefinition Height ="1*"/>
                             <RowDefinition Height ="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                        <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" Text="{Binding TextBoxStatus, Mode=OneWay}" Margin="10,15,20,15" />
                         <ProgressBar Grid.Row="1" Value="{Binding ProgressBarStatusVal}" 
                            Maximum="{Binding ProgressBarStatusMax}"
                            Visibility="{Binding ProgressBarStatusVisible}"
