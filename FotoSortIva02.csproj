@@ -79,9 +79,12 @@
     <Compile Include="Model\TextBoxesModel.cs" />
     <Compile Include="Resources\StaticProp.cs" />
     <Compile Include="Resources\ToDo.cs" />
+    <Compile Include="SpareWindow.xaml.cs">
+      <DependentUpon>SpareWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\CommandHandler.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="Dictionary1.xaml">
+    <Page Include="Resources\Styles\Dictionary1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,6 +105,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Main_Grid_Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

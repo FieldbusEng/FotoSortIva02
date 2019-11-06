@@ -10,6 +10,21 @@ namespace FotoSortIva02.Model
 {
     public class TextBoxesModel : NotifyPropertyChanged
     {
+        #region OpenFolderLocationEnabled
+        private bool openFolderLocationEnabled;
+        public bool OpenFolderLocationEnabled
+        {
+            get { return this.openFolderLocationEnabled; }
+            set
+            {
+                openFolderLocationEnabled = value;
+                RaisePropertyChange("OpenFolderLocationEnabled");
+
+            }
+        }
+
+        #endregion
+
         #region ProgressBarStatus
         private Visibility progressBarStatusVisible;
         public Visibility ProgressBarStatusVisible

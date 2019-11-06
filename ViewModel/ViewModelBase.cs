@@ -53,8 +53,8 @@ namespace FotoSortIva02.ViewModel
             TextBoxGenShow = "No Pictures choosen";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
-
             ProgressBarStatusVisible = Visibility.Hidden;
+            OpenFolderLocationEnabled = false;
 
         }
         #endregion
@@ -404,6 +404,27 @@ namespace FotoSortIva02.ViewModel
             path = path.Substring(6);
 
             Process.Start(path);
+                        
+        }
+        #endregion
+
+        #region OpenFolderLocation
+        
+
+        private ICommand _openFolderLocation;
+        public ICommand OpenFolderLocation
+        {
+            get
+            {
+                return _openFolderLocation ?? (_openFolderLocation = new CommandHandler(() => OpenFolderLocationAction(), () => CanExecute));
+            }
+        }
+
+        void OpenFolderLocationAction()
+        {
+
+            var pathNewFolder = TextBoxNewFolder;
+            Process.Start(pathNewFolder);
         }
         #endregion
 
@@ -427,11 +448,16 @@ namespace FotoSortIva02.ViewModel
             {
                 StaticProp.CreateFolderPath = browser.SelectedPath;
                 TextBoxNewFolder = StaticProp.CreateFolderPath;
-                
+
+
+                // Change TextBoxStatus
+                TextBoxStatus = "Folder New is choosen";
+
+                // Enable the button Open Folder Location
+                OpenFolderLocationEnabled = true;
             }
 
-            // Change TextBoxStatus
-            TextBoxStatus = "Folder New is choosen";
+
         }
         #endregion
 

@@ -41,6 +41,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
@@ -51,7 +52,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding ScanButtCommand}" Content="From where" Margin="20,20,20,20"/>
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding ScanButtCommand}" Content="From where" Margin="20,10,20,10" />
                     <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
                 </Grid>
 
@@ -60,12 +61,19 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding CreateButtCommand}" Content="Into here" Margin="20,20,20,20"/>
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding CreateButtCommand}" Content="To where" Margin="20,10,20,10"/>
 
                     <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxNewFolder}" Margin="10,15,20,15" />
                 </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding OpenFolderLocation}" IsEnabled="{Binding OpenFolderLocationEnabled}" Content="Open Folder" Margin="20,0,20,0"/>
+                </Grid>
 
-                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid Grid.Row="3" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
@@ -86,7 +94,7 @@
                     <!--<TextBlock Style="{DynamicResource StyleTextBlockOne}" Text= "Status : " Margin="20,20,20,20" /> -->
                 </Grid>
 
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Delete orinal files after copying : "
                                HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
@@ -94,7 +102,7 @@
 
                 </Grid>
 
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="5">
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Video as Well : "
                                HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
 
@@ -133,12 +141,14 @@
                 />
 
                 <Button Content="Start"
+                        Style="{DynamicResource GridButtonStart}"
                         Command="{Binding StartButtCommand}"
                         Grid.Column="0" Grid.Row="2" 
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="20,10,30,10" MinHeight="30" MinWidth="60"/>
 
                 <Button Content="Log file"
+                    Style="{DynamicResource GridButton}"
                     Command="{Binding LogButtCommand}"
                     Grid.Column="0" Grid.Row="2"
                     HorizontalAlignment="Left" VerticalAlignment="Center"
