@@ -7,9 +7,9 @@
         
         mc:Ignorable="d"
         Icon="gioconda.ico"
-        Title="Info" Height="450" Width="460"
-        Style="{StaticResource MyWindowStyle}"
-        >
+        Title="Info" Height="450" Width="460">
+    <!--="{StaticResource MyWindowStyle}" -->
+        
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,6 +29,8 @@
             FontFamily="Lucida Sans" Foreground="Black" Grid.ColumnSpan="2" Margin="38,0"
                    />
 
+        
+
         <TextBox x:Name="TextBoxInfo"  Grid.Row="1" Grid.Column="0" 
                 TextWrapping="Wrap" AcceptsReturn="True"
                 HorizontalScrollBarVisibility="Auto"
@@ -37,9 +39,9 @@
                 FontFamily="Lucida Sans"
                 FontSize="16"
                 Text="{Binding TextBoxInfo, Mode=OneWay}"
+                
                 Margin="30,30,30,30" Grid.ColumnSpan="2"
                    />
-        <CheckBox Grid.ColumnSpan="2" Content="CheckBox" HorizontalAlignment="Left" Height="100" Margin="358,219,-458,-319" Grid.RowSpan="3" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 

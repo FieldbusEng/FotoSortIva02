@@ -30,7 +30,11 @@
                 FontFamily="Lucida Sans"
                 FontSize="16"
                 Text="{Binding TextBoxInfo, Mode=OneWay}"
+                Template="{StaticResource TextBoxBaseControlTemplate}"
                 Margin="30,30,30,30"
+                BorderBrush="DimGray"
+                BorderThickness="1"
+                                
         />
         <Button Content="Close"
                 Style="{DynamicResource GridButton}"

@@ -47,3 +47,4 @@ C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\InfoWindow.
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\SpareWindow.g.cs
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\SpareWindow.baml
 C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\Resources\Styles\Dictionary1.baml
+C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\obj\Debug\FotoSortIva02.csprojAssemblyReference.cache
