@@ -86,6 +86,7 @@ namespace FotoSortIva02.ViewModel
         {
             lock (block)
             {
+                // if delete files after copy is true
                 if (StaticProp.PropCheckBoxDelete)
                 {
                     #region In case of CheckBox is True
@@ -107,7 +108,7 @@ namespace FotoSortIva02.ViewModel
 
                         // i work with video files separately
                         // make filter for video files
-                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                         filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
                         CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
 
@@ -190,7 +191,6 @@ namespace FotoSortIva02.ViewModel
                         }
 
 
-
                         // Change TextBoxStatus
                         TextBoxStatus = "Process Finished!";
 
@@ -207,13 +207,11 @@ namespace FotoSortIva02.ViewModel
                 }
                 else
                 {
-                    #region In case of CheckBox Delete is False
+                    #region In case of CheckBox Delete files after copying is False
                     // todo change belo line back
                     if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
                     //if (StaticProp.ScanningFolderPath != "empty")
                     {
-
-
                         // Change TextBoxStatus
                         TextBoxStatus = "Process Started";
                         // Progress bar visible
@@ -227,10 +225,14 @@ namespace FotoSortIva02.ViewModel
 
                         // i work with video files separately
                         // make filter for video files
-                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
-                        filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
-                        CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
-
+                        if (StaticProp.CheckBoxVideoSeparateFolder)
+                        {
+                            var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
+                            filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
+                            CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
+                            // toDo implement ProgressBar for video copying as well
+                        }
+                        
                         foreach (string item in filesNames)
                         {
                             ProgressBarStatusValue++;
@@ -265,7 +267,9 @@ namespace FotoSortIva02.ViewModel
                                                 // Copy the file
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
-                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+
+                                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
 
                                             }
                                             else
@@ -273,7 +277,8 @@ namespace FotoSortIva02.ViewModel
                                                 Directory.CreateDirectory(extendedMonthPath);
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
-                                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
                                             }
                                         }
                                         else
@@ -283,7 +288,8 @@ namespace FotoSortIva02.ViewModel
                                             Directory.CreateDirectory(extendedMonthPath);
                                             string fileToCopy = item;
                                             string destinationDirectory = extendedMonthPath + "\\";
-                                            File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                            Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                            //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
                                         }
 
 
@@ -292,19 +298,20 @@ namespace FotoSortIva02.ViewModel
                                     }
                                 }
                             }
-                            catch (Exception e)
+                            catch (Exception e)//----------------------------------------------------------------------------
                             {
+                                // here i need to create directory in case Exif Data not exist
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
                                 LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
 
-                                // here i need to create directory in case Exif Data not exist
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
                                 // Copy the file
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedNoExif + "\\";
 
-                                File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
+                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
 
                             }
                         }
@@ -312,8 +319,6 @@ namespace FotoSortIva02.ViewModel
 
                         // Change TextBoxStatus
                         TextBoxStatus = "Process Finished!";
-
-
 
                     }
                     else
@@ -328,6 +333,29 @@ namespace FotoSortIva02.ViewModel
                 }
             }
             
+        }
+
+
+        void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
+        {
+            int count = 1;
+
+            string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
+            string extension = Path.GetExtension(_fileToCopy);
+            string path = Path.GetDirectoryName(_fileToCopy);
+            string newFullPath = _fileToCopy;
+            string newFullName = _fileToCopy;
+
+            while (File.Exists(newFullPath))
+            {
+                string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
+                //newFullPath = Path.Combine(path, tempFileName + extension);
+                newFullName = tempFileName + extension;
+            }
+
+            // Copy 
+            File.Copy(_fileToCopy, _destinationDirectory + newFullName);
+            Thread.Sleep(200);
         }
 
         #endregion
@@ -489,7 +517,8 @@ namespace FotoSortIva02.ViewModel
 
             FolderBrowserDialog browser = new FolderBrowserDialog();
 
-
+            string[] longFilesNames;
+            string sizeOfFiles;
             if (browser.ShowDialog() == DialogResult.OK)
             {
                 StaticProp.ScanningFolderPath = browser.SelectedPath; // prints path
@@ -501,16 +530,48 @@ namespace FotoSortIva02.ViewModel
 
                 String searchFolder = pathing.InitialFolderPath;
                 var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg",
-                    "mp4", "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
+                     "avi", "mpg", "mpeg", "m2v", "mpg", "mp2", "mpeg", "mpe", "mpv", "mp4", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "gif", "ogv", "ogg", "vob", "flv", "mkv" };
 
                 filesNames = GetShortFilesFrom(searchFolder, filters, false);
+                longFilesNames = GetLongFilesFrom(searchFolder, filters, false);
+                sizeOfFiles = GetSizeOftheFiles(longFilesNames);
                 TextBoxFotoCounter = TextBoxFotoCounterMethod<string>(filesNames);
                 ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);
                 TextGenShowMethod(string.Join("\r\n", filesNames));
+
+                BottomTextBl_Text = "Total Number of Files : " + TextBoxFotoCounter + "     Total memory weight : " + sizeOfFiles +" Mb.";
+
             }
+            
+
             TextBoxStatus = "Scanning Finished";
 
         }
+
+        // Method to calculate the size of all files
+        string GetSizeOftheFiles(string[] _filesNames)
+        {
+            if (_filesNames != null)
+            {
+                int count = 0;
+
+                foreach (string bb in _filesNames)
+                {
+                    long length = new System.IO.FileInfo(bb).Length;
+                    count = count + ((int)length);
+                }
+                // get count in megabytes( / 1.000.0000) and round it up 
+                count = (int)Math.Ceiling((double)count / (double)1000000);
+                return count.ToString();
+            }
+            else
+            {
+                return "empty";
+            }
+            
+
+        }
+        
 
         // method to return all needed files in folder
 

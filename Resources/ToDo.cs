@@ -21,8 +21,10 @@ namespace FotoSortIva02.Resources
         // how many space it takes all those files
         // if will be enough space to
 
-        //    - add checkbox to delete files from scanning folder
+        //    Done - add checkbox to delete files from scanning folder
         //    -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
+        //     -block Exit during process
+
 
         //------------------General Questions----------------------
         //16.09.2019 To learn Xaml 

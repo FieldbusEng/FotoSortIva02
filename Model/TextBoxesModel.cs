@@ -141,6 +141,7 @@ namespace FotoSortIva02.Model
                 RaisePropertyChange("TextBoxStatus");
             }
         }
+
         private string textBoxInfo;
         public string TextBoxInfo
         {
@@ -149,6 +150,19 @@ namespace FotoSortIva02.Model
             {
                 textBoxInfo = value;
                 RaisePropertyChange("TextBoxInfo");
+            }
+        }
+
+        //-----------------------------------------------------------------
+
+        private string bottomTextBl_Text;
+        public string BottomTextBl_Text
+        {
+            get { return bottomTextBl_Text; }
+            set
+            {
+                bottomTextBl_Text = value;
+                RaisePropertyChange("BottomTextBl_Text");
             }
         }
 

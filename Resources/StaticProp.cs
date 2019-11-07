@@ -48,9 +48,10 @@ namespace FotoSortIva02.Resources
         };
 
 
-        // Static bool for CheckBoxDelete
+        // Static bool for CheckBox Delete files after copying
         public static bool PropCheckBoxDelete = false;
-        // Static bool for CheckBoxVideoSeparateFolder
+
+        // Static bool for CheckBox Copy Video as well to separate folder
         public static bool CheckBoxVideoSeparateFolder = false;
     }
 

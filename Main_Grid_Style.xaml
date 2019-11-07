@@ -16,6 +16,8 @@
                    VerticalAlignment="Stretch" HorizontalAlignment="Center" 
                    FontSize="22" FontWeight="Bold" Foreground="Black"/>
         
+        
+        
         <Menu Margin="10,0,600,00" Background="Transparent" >
             <MenuItem Header="File">
                 <MenuItem Header="Info" Command="{Binding InfoButtCommand}"/>
@@ -53,7 +55,10 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Button Style="{DynamicResource GridButton}" Command="{Binding ScanButtCommand}" Content="From where" Margin="20,10,20,10" />
-                    <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxScanFolder}" Margin="10,15,20,15" />
+                    <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch"
+                             Text="{Binding TextBoxScanFolder}"
+                             Template="{StaticResource TextBoxBaseControlTemplate}"
+                             Margin="10,15,20,15" />
                 </Grid>
 
                 <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -63,7 +68,10 @@
                     </Grid.ColumnDefinitions>
                     <Button Style="{DynamicResource GridButton}" Command="{Binding CreateButtCommand}" Content="To where" Margin="20,10,20,10"/>
 
-                    <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch" Text="{Binding TextBoxNewFolder}" Margin="10,15,20,15" />
+                    <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch"
+                             Text="{Binding TextBoxNewFolder}"
+                             Template="{StaticResource TextBoxBaseControlTemplate}"
+                             Margin="10,15,20,15" />
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -83,7 +91,12 @@
                             <RowDefinition Height ="1*"/>
                             <RowDefinition Height ="1*"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" Text="{Binding TextBoxStatus, Mode=OneWay}" Margin="10,15,20,15" />
+                        
+                        <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" 
+                                 Text="{Binding TextBoxStatus, Mode=OneWay}"
+                                 Template="{StaticResource TextBoxBaseControlTemplate}"
+                                 Margin="10,15,20,15" />
+                        
                         <ProgressBar Grid.Row="1" Value="{Binding ProgressBarStatusVal}" 
                            Maximum="{Binding ProgressBarStatusMax}"
                            Visibility="{Binding ProgressBarStatusVisible}"
@@ -128,8 +141,11 @@
                                Margin="30,0,0,0"/>
 
                     <TextBox x:Name="TextBoxFotoCounter" Grid.Row="0" Grid.Column="0"  
-                            TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Right" VerticalAlignment="Center"
-                             Text="{Binding TextBoxFotoCounter, Mode=OneWay}" 
+                            TextWrapping="Wrap" AcceptsReturn="True" HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
+                             TextAlignment="Center"
+                             Text="{Binding TextBoxFotoCounter, Mode=OneWay}"
+                             Template="{StaticResource TextBoxBaseControlTemplate}"
                              Margin="100,0,30,0" MinWidth="100"
                              />
                 </Grid>
@@ -137,6 +153,7 @@
                 <TextBox x:Name="TextBoxGenShow"  Grid.Row="1" Grid.Column="0" 
                 TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                 Text="{Binding TextBoxGenShow, Mode=OneWay}"
+                Template="{StaticResource TextBoxBaseControlTemplate}"
                 Margin="20,20,30,20"
                 />
 
@@ -159,10 +176,11 @@
 
             </Grid>
 
+
         </Grid>
-
-
-
+        <TextBlock Grid.Row="4" x:Name="BottomTextBl_Name" HorizontalAlignment="Stretch"
+                   Text="{Binding BottomTextBl_Text, Mode=OneWay}"
+                   Margin="20,0,0,0"/>
 
 
     </Grid>
