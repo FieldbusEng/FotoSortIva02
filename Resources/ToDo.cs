@@ -31,5 +31,8 @@ namespace FotoSortIva02.Resources
         //how to link path to resource dic in the folder
         //making Property="Effect" , how to link Value to Resource Dictionary
 
+
+
+
     }
 }
