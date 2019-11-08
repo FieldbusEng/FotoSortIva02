@@ -71,6 +71,7 @@
     <Compile Include="Main_Grid_Style.xaml.cs">
       <DependentUpon>Main_Grid_Style.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\CopyMethods.cs" />
     <Compile Include="Model\CopyVideoFiles.cs" />
     <Compile Include="Model\Helper.cs" />
     <Compile Include="Model\LoggingTxtIva.cs" />

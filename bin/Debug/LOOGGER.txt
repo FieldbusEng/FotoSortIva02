@@ -1,1 +1,31 @@
-07-Nov-19 2:24:28 PM
+08-Nov-19 12:50:05 PM
+08-Nov-19 12:50:36 PM
+The picture was taken on  09-Aug-18 9:44:30 AM
+08-Nov-19 12:50:36 PM
+The picture was taken on  20-Aug-18 5:02:45 PM
+08-Nov-19 12:50:36 PM
+The picture was taken on  20-Aug-18 5:02:48 PM
+08-Nov-19 12:50:37 PM
+Exception happenExifLib.ExifLibException: Unable to locate EXIF content ---> ExifLib.ExifLibException: Could not find Exif data block
+   at ExifLib.ExifReader.ReadToExifStart()
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   --- End of inner exception stack trace ---
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   at ExifLib.ExifReader..ctor(String fileName)
+   at FotoSortIva02.ViewModel.ViewModelBase.StartButtonMethod() in C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\ViewModel\ViewModelBase.cs:line 246
+08-Nov-19 12:50:37 PM
+Exception happenExifLib.ExifLibException: Unable to locate EXIF content ---> ExifLib.ExifLibException: Could not find Exif data block
+   at ExifLib.ExifReader.ReadToExifStart()
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   --- End of inner exception stack trace ---
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   at ExifLib.ExifReader..ctor(String fileName)
+   at FotoSortIva02.ViewModel.ViewModelBase.StartButtonMethod() in C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\ViewModel\ViewModelBase.cs:line 246
+08-Nov-19 12:50:37 PM
+Exception happenExifLib.ExifLibException: Unable to locate EXIF content ---> ExifLib.ExifLibException: Could not find Exif data block
+   at ExifLib.ExifReader.ReadToExifStart()
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   --- End of inner exception stack trace ---
+   at ExifLib.ExifReader..ctor(Stream stream, Boolean leaveOpen, Boolean internalStream)
+   at ExifLib.ExifReader..ctor(String fileName)
+   at FotoSortIva02.ViewModel.ViewModelBase.StartButtonMethod() in C:\Users\z003vahu\source\repos\FotoSortIva02\FotoSortIva02\ViewModel\ViewModelBase.cs:line 246

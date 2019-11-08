@@ -19,7 +19,7 @@ namespace FotoSortIva02.Model
             string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
             string extension = Path.GetExtension(_fileToCopy);
             string path = Path.GetDirectoryName(_fileToCopy);
-            string newFullPath = _fileToCopy;
+            string newFullPath = _destinationDirectory + fileNameOnly + extension;
             string newFullName = _fileToCopy;
 
             while (File.Exists(newFullPath))
@@ -27,10 +27,11 @@ namespace FotoSortIva02.Model
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 //newFullPath = Path.Combine(path, tempFileName + extension);
                 newFullName = tempFileName + extension;
+                newFullPath = newFullName;
             }
 
             // Move 
-            File.Move(_fileToCopy, _destinationDirectory + newFullName );
+            File.Move(_fileToCopy, newFullPath);
             Thread.Sleep(200);
         }
 
@@ -42,7 +43,7 @@ namespace FotoSortIva02.Model
             string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
             string extension = Path.GetExtension(_fileToCopy);
             string path = Path.GetDirectoryName(_fileToCopy);
-            string newFullPath = _fileToCopy;
+            string newFullPath = _destinationDirectory + fileNameOnly + extension;
             string newFullName = _fileToCopy;
 
             while (File.Exists(newFullPath))
@@ -50,10 +51,11 @@ namespace FotoSortIva02.Model
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 //newFullPath = Path.Combine(path, tempFileName + extension);
                 newFullName = tempFileName + extension;
+                newFullPath = newFullName;
             }
 
             // Copy 
-            File.Copy(_fileToCopy, _destinationDirectory + newFullName);
+            File.Copy(_fileToCopy, newFullPath);
             Thread.Sleep(200);
         }
 

@@ -112,6 +112,7 @@ namespace FotoSortIva02.ViewModel
                         filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
                         CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
 
+                        ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
                         foreach (string item in filesNames)
                         {
                             ProgressBarStatusValue++;
@@ -223,12 +224,15 @@ namespace FotoSortIva02.ViewModel
                         var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                         filesNames = GetLongFilesFrom(searchFolder, filters, false);
 
+                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
+                        filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
+                        // make max value for progressBar
+                        ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
+
                         // i work with video files separately
                         // make filter for video files
                         if (StaticProp.CheckBoxVideoSeparateFolder)
                         {
-                            var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
-                            filesNamesVideo = GetLongFilesFrom(searchFolder, filtersVideo, false);
                             CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
                             // toDo implement ProgressBar for video copying as well
                         }
@@ -236,84 +240,104 @@ namespace FotoSortIva02.ViewModel
                         foreach (string item in filesNames)
                         {
                             ProgressBarStatusValue++;
+
                             try
                             {
                                 using (ExifReader reader = new ExifReader(item))
                                 {
-                                    // Extract the tag data using the ExifTags enumeration
-                                    DateTime datePictureTaken;
-                                    if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                                    // if exif data exist (!=null)
+                                    if (reader != null)
                                     {
-                                        // Do whatever is required with the extracted information
-                                        string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-                                        LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
-
-                                        int intmonthOfPic = (Int32)datePictureTaken.Month;
-                                        string monthOfPic = "NOMonth";
-                                        StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
-                                        string yearOfPic = datePictureTaken.Year.ToString();
-                                        // making extended Pathes
-                                        string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
-                                        string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
-                                        //---------------------
-
-
-                                        // check if such a year exist in the new folder
-                                        if (File.Exists(extendedYearPath))
+                                        // Extract the tag data using the ExifTags enumeration
+                                        DateTime datePictureTaken;
+                                        if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
                                         {
-                                            //check if such a month exist in the new folder
-                                            if (File.Exists(extendedMonthPath))
+                                            // Do whatever is required with the extracted information
+                                            string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+                                            LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
+
+                                            int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                            string monthOfPic = "NOMonth";
+                                            StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                            string yearOfPic = datePictureTaken.Year.ToString();
+                                            // making extended Pathes
+                                            string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                            string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                            //---------------------
+
+
+                                            // check if such a year exist in the new folder
+                                            if (File.Exists(extendedYearPath))
                                             {
-                                                // Copy the file
-                                                string fileToCopy = item;
-                                                string destinationDirectory = extendedMonthPath + "\\";
+                                                //check if such a month exist in the new folder
+                                                if (File.Exists(extendedMonthPath))
+                                                {
+                                                    // Copy the file
+                                                    string fileToCopy = item;
+                                                    string destinationDirectory = extendedMonthPath + "\\";
 
-                                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                                //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                    CopyMethods instanceCopy = new CopyMethods();
+                                                    instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                    //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
 
+                                                }
+                                                else
+                                                {
+                                                    Directory.CreateDirectory(extendedMonthPath);
+                                                    string fileToCopy = item;
+                                                    string destinationDirectory = extendedMonthPath + "\\";
+                                                    CopyMethods instanceCopy = new CopyMethods();
+                                                    instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+
+                                                    //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                }
                                             }
                                             else
                                             {
+                                                // Copy the file
+                                                Directory.CreateDirectory(extendedYearPath);
                                                 Directory.CreateDirectory(extendedMonthPath);
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
-                                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                CopyMethods instanceCopy = new CopyMethods();
+                                                instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
                                                 //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
                                             }
-                                        }
-                                        else
-                                        {
-                                            // Copy the file
-                                            Directory.CreateDirectory(extendedYearPath);
-                                            Directory.CreateDirectory(extendedMonthPath);
-                                            string fileToCopy = item;
-                                            string destinationDirectory = extendedMonthPath + "\\";
-                                            Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                            //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+
+
+                                            Thread.Sleep(10);
+
                                         }
 
 
-                                        Thread.Sleep(10);
+                                    }
+                                    else
+                                    {
+                                        // here i need to create directory in case Exif Data not exist
+                                        string messageToWriteFailed = "No Exif data in the file";
+                                        LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+
+                                        string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                                        Directory.CreateDirectory(extendedNoExif);
+                                        // Copy the file
+                                        string fileToCopy = item;
+                                        string destinationDirectory = extendedNoExif + "\\";
+
+                                        CopyMethods instanceCopy = new CopyMethods();
+                                        instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                        //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
 
                                     }
                                 }
                             }
-                            catch (Exception e)//----------------------------------------------------------------------------
+                            catch (Exception e)
                             {
-                                // here i need to create directory in case Exif Data not exist
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
-                                LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+                                LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
 
-                                string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
-                                Directory.CreateDirectory(extendedNoExif);
-                                // Copy the file
-                                string fileToCopy = item;
-                                string destinationDirectory = extendedNoExif + "\\";
-
-                                Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName("\\" + fileToCopy));
-
+                                
                             }
+
                         }
 
 
@@ -335,28 +359,6 @@ namespace FotoSortIva02.ViewModel
             
         }
 
-
-        void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
-        {
-            int count = 1;
-
-            string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
-            string extension = Path.GetExtension(_fileToCopy);
-            string path = Path.GetDirectoryName(_fileToCopy);
-            string newFullPath = _fileToCopy;
-            string newFullName = _fileToCopy;
-
-            while (File.Exists(newFullPath))
-            {
-                string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                //newFullPath = Path.Combine(path, tempFileName + extension);
-                newFullName = tempFileName + extension;
-            }
-
-            // Copy 
-            File.Copy(_fileToCopy, _destinationDirectory + newFullName);
-            Thread.Sleep(200);
-        }
 
         #endregion
 

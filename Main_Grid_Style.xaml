@@ -154,6 +154,8 @@
                 TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                 Text="{Binding TextBoxGenShow, Mode=OneWay}"
                 Template="{StaticResource TextBoxBaseControlTemplate}"
+                TextOptions.TextRenderingMode="ClearType"
+                TextOptions.TextFormattingMode="Display"
                 Margin="20,20,30,20"
                 />
 
