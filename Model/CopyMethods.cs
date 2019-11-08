@@ -26,7 +26,7 @@ namespace FotoSortIva02.Model
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 //newFullPath = Path.Combine(path, tempFileName + extension);
                 newFullName = tempFileName + extension;
-                newFullPath = newFullName;
+                newFullPath = _destinationDirectory+newFullName;
             }
 
             // Copy 
@@ -49,7 +49,7 @@ namespace FotoSortIva02.Model
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 //newFullPath = Path.Combine(path, tempFileName + extension);
                 newFullName = tempFileName + extension;
-                newFullPath = newFullName;
+                newFullPath = _destinationDirectory + newFullName;
             }
 
             // Copy 
