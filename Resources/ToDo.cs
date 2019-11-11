@@ -23,7 +23,7 @@ namespace FotoSortIva02.Resources
 
         //    Done - add checkbox to delete files from scanning folder
         //    -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
-        //     -block Exit during process
+        //    -block Exit during process
 
 
         //------------------General Questions----------------------

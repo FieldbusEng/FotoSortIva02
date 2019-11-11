@@ -517,7 +517,20 @@ namespace FotoSortIva02.ViewModel
 
                 // Enable the button Open Folder Location
                 OpenFolderLocationEnabled = true;
+
             }
+
+            // Getting the free space of the target drive
+            int freeSpaceInt = 0;
+            string driveChoosen = (StaticProp.CreateFolderPath).Substring(0, 3);
+            DriveInfo drive = new DriveInfo(driveChoosen);
+            if (drive.IsReady && drive.Name == driveChoosen)
+            {
+                long freeSpace = drive.TotalFreeSpace;
+                freeSpaceInt = (int)Math.Ceiling((double)freeSpace / (double)1000000000);
+
+            }
+            BottomTextBl_Text = BottomTextBl_Text + "   --- Free space on the Drive " + driveChoosen+" " + freeSpaceInt.ToString() + " GB";
 
 
         }
@@ -574,6 +587,7 @@ namespace FotoSortIva02.ViewModel
                 TextGenShowMethod(string.Join("\r\n", filesNames));
 
                 BottomTextBl_Text = "Total Number of Files : " + TextBoxFotoCounter + "     Total memory weight : " + sizeOfFiles +" Mb.";
+                
 
             }
             
