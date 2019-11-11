@@ -26,7 +26,7 @@ namespace FotoSortIva02.Resources
         //Y  -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
         //Y  -block Exit during process
 
-        // ProgressBar not Working
+        //Y ProgressBar not Working
         //Y -Make Text box Status -not changeble IsReadOnly="True" 
         //Y -Make possible to move windows after deleting top panel - now it is possible to drag by the TextBlock Text="Foto Sorting App"
 

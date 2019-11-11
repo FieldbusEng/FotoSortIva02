@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FotoSortIva02.Model
 {
-    class CopyVideoFiles
+    class CopyVideoFiles : TextBoxesModel
     {
         // Method to Move Files to the folder taking into account that such a file exists or not
         void Move_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
@@ -32,7 +32,7 @@ namespace FotoSortIva02.Model
 
             // Move 
             File.Move(_fileToCopy, newFullPath);
-            Thread.Sleep(200);
+            Thread.Sleep(10);
         }
 
         // Method to Copy Files to the folder taking into account that such a file exists or not
@@ -56,7 +56,7 @@ namespace FotoSortIva02.Model
 
             // Copy 
             File.Copy(_fileToCopy, newFullPath);
-            Thread.Sleep(200);
+            Thread.Sleep(10);
         }
 
         public CopyVideoFiles(string[] filesVideoCollected)
@@ -69,6 +69,7 @@ namespace FotoSortIva02.Model
                 {
                     foreach (string item in filesVideoCollected)
                     {
+                        ProgressBarStatusValue++;
 
                         try
                         {
@@ -117,6 +118,7 @@ namespace FotoSortIva02.Model
                     // in case check box Delete files after copy is False
                     foreach (string item in filesVideoCollected)
                     {
+                        ProgressBarStatusValue++;
 
                         try
                         {

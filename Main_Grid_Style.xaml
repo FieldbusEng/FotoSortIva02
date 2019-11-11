@@ -100,8 +100,8 @@
                                  IsReadOnly="True" 
                                  Template="{StaticResource TextBoxBaseControlTemplate}"
                                  Margin="10,15,20,15" />
-                        
-                        <ProgressBar Grid.Row="1" Value="{Binding ProgressBarStatusVal}" 
+
+                        <ProgressBar Grid.Row="1" Value="{Binding ProgressBarStatusValue}" 
                            Maximum="{Binding ProgressBarStatusMax}"
                            Visibility="{Binding ProgressBarStatusVisible}"
                            Minimum="0"  Margin="10,0,20,40" />

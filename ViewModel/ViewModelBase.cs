@@ -93,10 +93,9 @@ namespace FotoSortIva02.ViewModel
                 // if delete files after copy is true
                 if (StaticProp.PropCheckBoxDelete)
                 {
-                    #region In case of CheckBox Delete files after copying is False
-                    // todo change belo line back
+                    #region 
+                    
                     if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                    //if (StaticProp.ScanningFolderPath != "empty")
                     {
                         // Change TextBoxStatus
                         TextBoxStatus = "Process Started";
@@ -113,15 +112,20 @@ namespace FotoSortIva02.ViewModel
                         var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                         
                         filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
-                        // make max value for progressBar
-                        ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
+
+                        // ProgressBarStatusMax will be only pictures
+                        ProgressBarStatusMax = filesNames.Length;
 
                         // i work with video files separately
                         // make filter for video files
                         if (StaticProp.CheckBoxVideoSeparateFolder)
                         {
+                            //  ProgressBarStatusMax will be pictures + Video
+                            ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
+
                             CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
                             // toDo implement ProgressBar for video copying as well
+
                         }
 
                         foreach (string item in filesNames)
@@ -262,13 +266,16 @@ namespace FotoSortIva02.ViewModel
 
                         var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                         filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
-                        // make max value for progressBar
-                        ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
+                        
+                        // ProgressBarStatusMax will be only pictures
+                        ProgressBarStatusMax = filesNames.Length;
 
                         // i work with video files separately
                         // make filter for video files
                         if (StaticProp.CheckBoxVideoSeparateFolder)
                         {
+                            //  ProgressBarStatusMax will be pictures + Video
+                            ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
                             CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
                             // toDo implement ProgressBar for video copying as well
                         }
@@ -589,7 +596,7 @@ namespace FotoSortIva02.ViewModel
                 longFilesNames = methods.GetLongFilesFrom(searchFolder, filters, false);
                 sizeOfFiles = methods.GetSizeOftheFiles(longFilesNames);
                 TextBoxFotoCounter = TextBoxFotoCounterMethod<string>(filesNames);
-                ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);
+                //ProgressBarStatusMax = TextBoxFotoCounterMethod<int>(filesNames);
                 TextGenShowMethod(string.Join("\r\n", filesNames));
 
                 BottomTextBl_Text = "Total Number of Files : " + TextBoxFotoCounter + "     Total memory weight : " + sizeOfFiles +" Mb.";
