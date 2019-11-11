@@ -10,19 +10,33 @@ namespace FotoSortIva02.Model
 {
     public class TextBoxesModel : NotifyPropertyChanged
     {
-        #region OpenFolderLocationEnabled
-        private bool openFolderLocationEnabled;
-        public bool OpenFolderLocationEnabled
+        #region IsEnabledOpenFolderButton
+        private bool isEnabledOpenFolderButton;
+        public bool IsEnabledOpenFolderButton
         {
-            get { return this.openFolderLocationEnabled; }
+            get { return this.isEnabledOpenFolderButton; }
             set
             {
-                openFolderLocationEnabled = value;
-                RaisePropertyChange("OpenFolderLocationEnabled");
+                isEnabledOpenFolderButton = value;
+                RaisePropertyChange("IsEnabledOpenFolderButton");
 
             }
         }
 
+        #endregion
+
+        #region IsEnabledExitButton
+        private bool isEnabledExitButton;
+        public bool IsEnabledExitButton
+        {
+            get { return this.isEnabledExitButton; }
+            set
+            {
+                isEnabledExitButton = value;
+                RaisePropertyChange("IsEnabledExitButton");
+
+            }
+        }
         #endregion
 
         #region ProgressBarStatus

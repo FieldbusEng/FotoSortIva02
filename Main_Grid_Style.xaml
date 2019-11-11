@@ -16,14 +16,15 @@
         </Grid.RowDefinitions>
         <TextBlock Text="Foto Sorting App" 
                    VerticalAlignment="Stretch" HorizontalAlignment="Center" 
-                   FontSize="22" FontWeight="Bold" Foreground="Black"/>
-        
-        
-        
+                   FontSize="22" FontWeight="Bold" Foreground="Black"
+                   MouseDown="moveWindow"/>
+
+
+
         <Menu Margin="10,0,600,00" Background="Transparent" >
             <MenuItem Header="File">
                 <MenuItem Header="Info" Command="{Binding InfoButtCommand}"/>
-                <MenuItem Header="Exit"  Command="{Binding ExitButtCommand}"/>
+                <MenuItem Header="Exit" IsEnabled="{Binding IsEnabledExitButton}" Command="{Binding ExitButtCommand}"/>
             </MenuItem>
 
             <MenuItem Header="Design">
@@ -80,7 +81,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{DynamicResource GridButton}" Command="{Binding OpenFolderLocation}" IsEnabled="{Binding OpenFolderLocationEnabled}" Content="Open Folder" Margin="20,0,20,0"/>
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding OpenFolderLocation}" IsEnabled="{Binding IsEnabledOpenFolderButton}" Content="Open Folder" Margin="20,0,20,0"/>
                 </Grid>
 
                 <Grid Grid.Row="3" Grid.ColumnSpan="2">
@@ -96,6 +97,7 @@
                         
                         <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" 
                                  Text="{Binding TextBoxStatus, Mode=OneWay}"
+                                 IsReadOnly="True" 
                                  Template="{StaticResource TextBoxBaseControlTemplate}"
                                  Margin="10,15,20,15" />
                         

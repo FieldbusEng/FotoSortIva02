@@ -54,7 +54,8 @@ namespace FotoSortIva02.ViewModel
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
             TextBoxScanFolder = StaticProp.initTextBoxScanFolder;
             ProgressBarStatusVisible = Visibility.Hidden;
-            OpenFolderLocationEnabled = false;
+            IsEnabledOpenFolderButton = false;
+            IsEnabledExitButton = true;
 
         }
         #endregion
@@ -84,6 +85,9 @@ namespace FotoSortIva02.ViewModel
         object block = new object();
         void StartButtonMethod()
         {
+            // disable button exit during run of the process
+            IsEnabledExitButton = false;
+
             lock (block)
             {
                 // if delete files after copy is true
@@ -388,6 +392,8 @@ namespace FotoSortIva02.ViewModel
                     #endregion
                 }
             }
+            // enable exit button when process is finished
+            IsEnabledExitButton = true;
             
         }
 
@@ -516,7 +522,7 @@ namespace FotoSortIva02.ViewModel
                 TextBoxStatus = "Folder New is choosen";
 
                 // Enable the button Open Folder Location
-                OpenFolderLocationEnabled = true;
+                IsEnabledOpenFolderButton = true;
 
             }
 

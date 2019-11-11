@@ -29,5 +29,11 @@ namespace FotoSortIva02
 
             DataContext = instance;
         }
+
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
     }
 }
