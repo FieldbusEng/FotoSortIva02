@@ -56,6 +56,7 @@ namespace FotoSortIva02.ViewModel
             ProgressBarStatusVisible = Visibility.Hidden;
             IsEnabledOpenFolderButton = false;
             IsEnabledExitButton = true;
+            VisibilityStopButton = Visibility.Hidden;
 
         }
         #endregion
@@ -71,15 +72,18 @@ namespace FotoSortIva02.ViewModel
             }
         }
 
+        // here i announce thread so it will be accessible from Start and Stop button
+        ThreadStart secondPotok;
+        Thread potok; 
+
 
         void StartButtAction()
         {
             // here i will call second Thread
-            ThreadStart secondPotok = new ThreadStart(StartButtonMethod);
-            Thread potok = new Thread(secondPotok);
+            secondPotok = new ThreadStart(StartButtonMethod);
+            potok = new Thread(secondPotok);
             potok.Start();
-
-
+            
         }
 
         object block = new object();
@@ -87,6 +91,7 @@ namespace FotoSortIva02.ViewModel
         {
             // disable button exit during run of the process
             IsEnabledExitButton = false;
+            VisibilityStopButton = Visibility.Visible;
 
             lock (block)
             {
@@ -483,7 +488,7 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
-        #region OpenFolderLocation
+        #region Button OpenFolderLocation
         
 
         private ICommand _openFolderLocation;
@@ -724,6 +729,28 @@ namespace FotoSortIva02.ViewModel
                 infoWindow.Show();
 
             }
+        }
+        #endregion
+
+        #region StopButtCommand
+
+
+        private ICommand stopButtCommand;
+        public ICommand StopButtCommand
+        {
+            get
+            {
+                return stopButtCommand ?? (stopButtCommand = new CommandHandler(() => StopButtCommandAction(), () => CanExecute));
+            }
+        }
+
+        void StopButtCommandAction()
+        {
+            
+            potok.Abort();
+            // enable exit button when process is finished
+            IsEnabledExitButton = true;
+
         }
         #endregion
 

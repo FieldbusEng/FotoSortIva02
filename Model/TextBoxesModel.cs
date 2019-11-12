@@ -39,6 +39,20 @@ namespace FotoSortIva02.Model
         }
         #endregion
 
+        #region VisibilityStopButton
+        private Visibility visibilityStopButton;
+        public Visibility VisibilityStopButton
+        {
+            get { return this.visibilityStopButton; }
+            set
+            {
+                visibilityStopButton = value;
+                RaisePropertyChange("VisibilityStopButton");
+
+            }
+        }
+        #endregion
+
         #region ProgressBarStatus
         private Visibility progressBarStatusVisible;
         public Visibility ProgressBarStatusVisible

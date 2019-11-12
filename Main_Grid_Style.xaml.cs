@@ -30,6 +30,7 @@ namespace FotoSortIva02
             DataContext = instance;
         }
 
+        // this method allo to move window by dragging the text block <TextBlock Text="Foto Sorting App" 
         private void moveWindow(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed)
