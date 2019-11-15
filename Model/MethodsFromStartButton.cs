@@ -78,13 +78,16 @@ namespace FotoSortIva02.Model
             //Variant 2 search in all subfolders
             var searchOption = isRecursive ? SearchOption.AllDirectories : SearchOption.AllDirectories;
             // Variant 2 -------------------- end
-
-            foreach (var filter in filters)
-            {
-                //Variant 1 this getting the full name of the files with the pathes
-                filesFound.AddRange(Directory.GetFiles(searchFolder, String.Format("*.{0}", filter), searchOption));
-                // Variant 1 -------------------- end
-            }
+            
+            
+                foreach (var filter in filters)
+                {
+                    //Variant 1 this getting the full name of the files with the pathes
+                    filesFound.AddRange(Directory.GetFiles(searchFolder, String.Format("*.{0}", filter), searchOption));
+                    // Variant 1 -------------------- end
+                }
+            
+            
             return filesFound.ToArray();
         }
 

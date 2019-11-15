@@ -98,7 +98,7 @@ namespace FotoSortIva02.ViewModel
                 // if delete files after copy is true
                 if (StaticProp.PropCheckBoxDelete)
                 {
-                    #region 
+                    #region Check Box Delete = true
                     
                     if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
                     {
@@ -111,6 +111,7 @@ namespace FotoSortIva02.ViewModel
 
                         String searchFolder = pathing.InitialFolderPath;
                         var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                                              
                         MethodsFromStartButton methods = new MethodsFromStartButton();
                         filesNames = methods.GetLongFilesFrom(searchFolder, filters, false);
 
@@ -139,91 +140,96 @@ namespace FotoSortIva02.ViewModel
 
                             try
                             {
-                                using (ExifReader reader = new ExifReader(item))
+                                ExifReader reader;
+                                using ( ExifReader reader1 = new ExifReader(item))
                                 {
-                                    // if exif data exist (!=null)
-                                    if (reader != null)
+                                    reader = reader1;
+                                    reader1.Dispose();
+                                }
+
+                                // if exif data exist (!=null)
+                                if (reader != null)
+                                {
+                                    // Extract the tag data using the ExifTags enumeration
+                                    DateTime datePictureTaken;
+                                    if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
                                     {
-                                        // Extract the tag data using the ExifTags enumeration
-                                        DateTime datePictureTaken;
-                                        if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                                        // Do whatever is required with the extracted information
+                                        string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+                                        LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
+
+                                        int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                        string monthOfPic = "NOMonth";
+                                        StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                        string yearOfPic = datePictureTaken.Year.ToString();
+                                        // making extended Pathes
+                                        string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                        string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                        //---------------------
+
+
+                                        // check if such a year exist in the new folder
+                                        if (Directory.Exists(extendedYearPath))
                                         {
-                                            // Do whatever is required with the extracted information
-                                            string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-                                            LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
-
-                                            int intmonthOfPic = (Int32)datePictureTaken.Month;
-                                            string monthOfPic = "NOMonth";
-                                            StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
-                                            string yearOfPic = datePictureTaken.Year.ToString();
-                                            // making extended Pathes
-                                            string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
-                                            string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
-                                            //---------------------
-
-
-                                            // check if such a year exist in the new folder
-                                            if (Directory.Exists(extendedYearPath))
+                                            //check if such a month exist in the new folder
+                                            if (Directory.Exists(extendedMonthPath))
                                             {
-                                                //check if such a month exist in the new folder
-                                                if (Directory.Exists(extendedMonthPath))
-                                                {
-                                                    // Copy the file
-                                                    string fileToCopy = item;
-                                                    string destinationDirectory = extendedMonthPath + "\\";
+                                                // Copy the file
+                                                string fileToCopy = item;
+                                                string destinationDirectory = extendedMonthPath + "\\";
 
-                                                    CopyMethods instanceCopy = new CopyMethods();
-                                                    instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                                
+                                                CopyMethods instanceCopy = new CopyMethods();
+                                                instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
-                                                }
-                                                else
-                                                {
-                                                    Directory.CreateDirectory(extendedMonthPath);
-                                                    string fileToCopy = item;
-                                                    string destinationDirectory = extendedMonthPath + "\\";
-                                                    CopyMethods instanceCopy = new CopyMethods();
-                                                    instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
-                                                
-                                                }
                                             }
                                             else
                                             {
-                                                // Copy the file
-                                                Directory.CreateDirectory(extendedYearPath);
                                                 Directory.CreateDirectory(extendedMonthPath);
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
                                                 CopyMethods instanceCopy = new CopyMethods();
                                                 instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                                
+
+
                                             }
-
-
-                                            Thread.Sleep(10);
+                                        }
+                                        else
+                                        {
+                                            // Copy the file
+                                            Directory.CreateDirectory(extendedYearPath);
+                                            Directory.CreateDirectory(extendedMonthPath);
+                                            string fileToCopy = item;
+                                            string destinationDirectory = extendedMonthPath + "\\";
+                                            CopyMethods instanceCopy = new CopyMethods();
+                                            instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
                                         }
 
 
-                                    }
-                                    else
-                                    {
-                                        // here i need to create directory in case Exif Data not exist
-                                        string messageToWriteFailed = "No Exif data in the file";
-                                        LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+                                        Thread.Sleep(2);
 
-                                        string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
-                                        Directory.CreateDirectory(extendedNoExif);
-                                        // Copy the file
-                                        string fileToCopy = item;
-                                        string destinationDirectory = extendedNoExif + "\\";
-
-                                        CopyMethods instanceCopy = new CopyMethods();
-                                        instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                      
                                     }
+
+
                                 }
+                                else
+                                {
+                                    // here i need to create directory in case Exif Data not exist
+                                    string messageToWriteFailed = "No Exif data in the file";
+                                    LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+
+                                    string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                                    Directory.CreateDirectory(extendedNoExif);
+                                    // Copy the file
+                                    string fileToCopy = item;
+                                    string destinationDirectory = extendedNoExif + "\\";
+
+                                    CopyMethods instanceCopy = new CopyMethods();
+                                    instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+
+                                }
+
                             }
                             catch (Exception e)
                             {
@@ -342,7 +348,7 @@ namespace FotoSortIva02.ViewModel
                                             }
                                             else
                                             {
-                                                // Copy the file
+                                                
                                                 Directory.CreateDirectory(extendedYearPath);
                                                 Directory.CreateDirectory(extendedMonthPath);
                                                 string fileToCopy = item;
@@ -353,7 +359,7 @@ namespace FotoSortIva02.ViewModel
                                             }
 
 
-                                            Thread.Sleep(10);
+                                            Thread.Sleep(2);
 
                                         }
 

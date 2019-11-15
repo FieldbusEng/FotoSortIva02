@@ -32,7 +32,7 @@ namespace FotoSortIva02.Model
 
             // Move 
             File.Move(_fileToCopy, newFullPath);
-            Thread.Sleep(10);
+            Thread.Sleep(20);
         }
 
         // Method to Copy Files to the folder taking into account that such a file exists or not
@@ -56,7 +56,7 @@ namespace FotoSortIva02.Model
 
             // Copy 
             File.Copy(_fileToCopy, newFullPath);
-            Thread.Sleep(10);
+            Thread.Sleep(2);
         }
 
         public CopyVideoFiles(string[] filesVideoCollected)
@@ -90,7 +90,7 @@ namespace FotoSortIva02.Model
                             }
                             else
                             {
-                                // Copy the file
+                                
                                 Directory.CreateDirectory(extendedFolderForVideo);
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedFolderForVideo + "\\";
@@ -161,6 +161,7 @@ namespace FotoSortIva02.Model
                             LoggingTxtIva ll6 = new LoggingTxtIva(messageToWriteFailed);
 
                         }
+
 
                     }
 

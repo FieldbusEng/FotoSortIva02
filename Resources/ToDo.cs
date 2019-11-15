@@ -18,7 +18,7 @@ namespace FotoSortIva02.Resources
         //NO DateTime result = File.GetCreationTime(file_path);
 
 
-        // if not enough space on the disc
+        // ? if not enough space on the disc - maybe will not do
         //Y how many space it takes all those files
 
 
@@ -26,9 +26,14 @@ namespace FotoSortIva02.Resources
         //Y  -to add exception during the copy if file exists, copy it with text ( copy1, copy2 etc.)
         //Y  -block Exit during process
 
-        //Y ProgressBar not Working
+        // ProgressBar is not checked fully
+             // Delete after copying for pic files does not work because Exception "The process cannot access the file because it is being used by another process"
+             // I added in CopyMethods > Move method > functionality of repeat tryials in case of exception
+             // also im trying to find which process holding the file and make this process iDisposable through: using(){}
+
         //Y -Make Text box Status -not changeble IsReadOnly="True" 
         //Y -Make possible to move windows after deleting top panel - now it is possible to drag by the TextBlock Text="Foto Sorting App"
+        //Y- Added Stop button for stop Process 
 
 
         //------------------General Questions----------------------
