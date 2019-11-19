@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace FotoSortIva02.ViewModel
 {
@@ -61,7 +62,7 @@ namespace FotoSortIva02.ViewModel
         }
         #endregion
 
-        #region Button StartButtCommand
+        #region Button Start - StartButtCommand
 
         private ICommand _startButtCommand;
         public ICommand StartButtCommand
@@ -74,8 +75,7 @@ namespace FotoSortIva02.ViewModel
 
         // here i announce thread so it will be accessible from Start and Stop button
         ThreadStart secondPotok;
-        Thread potok; 
-
+        Thread potok;
 
         void StartButtAction()
         {
@@ -98,6 +98,9 @@ namespace FotoSortIva02.ViewModel
                 // if delete files after copy is true
                 if (StaticProp.PropCheckBoxDelete)
                 {
+                    // create dictionary to put all pairs what to Move where to Move and serialize it.
+                    var MovePicDictionary = new Dictionary<string, string>();
+
                     #region Check Box Delete = true
                     
                     if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
@@ -140,13 +143,8 @@ namespace FotoSortIva02.ViewModel
 
                             try
                             {
-                                ExifReader reader;
-                                using ( ExifReader reader1 = new ExifReader(item))
-                                {
-                                    reader = reader1;
-                                    reader1.Dispose();
-                                }
-
+                                ExifReader reader = new ExifReader(item);
+                                
                                 // if exif data exist (!=null)
                                 if (reader != null)
                                 {
@@ -178,8 +176,10 @@ namespace FotoSortIva02.ViewModel
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
 
-                                                CopyMethods instanceCopy = new CopyMethods();
-                                                instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                MovePicDictionary.Add(fileToCopy, destinationDirectory);
+
+                                                //CopyMethods instanceCopy = new CopyMethods();
+                                                //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
 
                                             }
@@ -188,8 +188,10 @@ namespace FotoSortIva02.ViewModel
                                                 Directory.CreateDirectory(extendedMonthPath);
                                                 string fileToCopy = item;
                                                 string destinationDirectory = extendedMonthPath + "\\";
-                                                CopyMethods instanceCopy = new CopyMethods();
-                                                instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+
+                                                MovePicDictionary.Add(fileToCopy, destinationDirectory);
+                                                //CopyMethods instanceCopy = new CopyMethods();
+                                                //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
 
                                             }
@@ -201,8 +203,10 @@ namespace FotoSortIva02.ViewModel
                                             Directory.CreateDirectory(extendedMonthPath);
                                             string fileToCopy = item;
                                             string destinationDirectory = extendedMonthPath + "\\";
-                                            CopyMethods instanceCopy = new CopyMethods();
-                                            instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                            MovePicDictionary.Add(fileToCopy, destinationDirectory);
+
+                                            //CopyMethods instanceCopy = new CopyMethods();
+                                            //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
                                         }
 
@@ -225,8 +229,10 @@ namespace FotoSortIva02.ViewModel
                                     string fileToCopy = item;
                                     string destinationDirectory = extendedNoExif + "\\";
 
-                                    CopyMethods instanceCopy = new CopyMethods();
-                                    instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                    MovePicDictionary.Add(fileToCopy, destinationDirectory);
+
+                                   //CopyMethods instanceCopy = new CopyMethods();
+                                    //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
                                 }
 
@@ -240,16 +246,15 @@ namespace FotoSortIva02.ViewModel
                             }
 
                         }
-
-
+                        
                         // Change TextBoxStatus
-                        TextBoxStatus = "Process Finished!";
+                        TextBoxStatus = "Move process Started";
 
                     }
                     else
                     {
+                        //if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
                         //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-                        // Change TextBoxStatus
                         TextBoxStatus = "Folders not determined";
 
                     }
@@ -410,8 +415,36 @@ namespace FotoSortIva02.ViewModel
                     #endregion
                 }
             }
+
+
+
+            // Serialisation Process
+            SerialisationProcess makeSerialisation = new SerialisationProcess();
+            Thread.Sleep(100);
+
+            // Move Process through another thread 
+            object toPassDict = makeSerialisation.DoDeserialisation();
+            Thread t_potok = new Thread(() => MovePicMethod(toPassDict));
+            t_potok.Start();
+            t_potok.Join();
+
             // enable exit button when process is finished
             IsEnabledExitButton = true;
+            
+        }
+
+        public void MovePicMethod(object _dict)
+        {
+            lock (block)
+            {
+                Dictionary<string, string> incomeDict = (Dictionary<string, string>)_dict;
+                foreach (KeyValuePair<string, string> itemm in incomeDict)
+                {
+                    CopyMethods instanceCopy = new CopyMethods();
+                    instanceCopy.Move_FileNameExistsMethod(itemm.Key, itemm.Value);
+                }
+                TextBoxStatus = "Getting Info/Folders Finished!";
+            }
             
         }
 
