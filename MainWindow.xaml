@@ -108,7 +108,11 @@
 
         <Button Style="{DynamicResource StyleButtonExit}"  Command="{Binding ExitButtCommand}" Grid.Column="7" Grid.Row="15" Height="20" Content="EXIT" Grid.ColumnSpan="2"  HorizontalAlignment="Right"  MinWidth="120"/>
 
-        <CheckBox  Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Top">
+        <CheckBox Command="{Binding CheckBoxDel_Checked}"
+                  ClickMode="Press" Content=""
+                  Grid.Column="4" HorizontalAlignment="Right"
+                  Grid.Row="12" VerticalAlignment="Top"
+                  IsEnabled="False">
             <CheckBox.LayoutTransform>
                 <ScaleTransform ScaleX="1.7" ScaleY="1.7" />
             </CheckBox.LayoutTransform>

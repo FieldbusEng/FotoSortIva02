@@ -80,6 +80,7 @@
     <Compile Include="Model\Pathes.cs" />
     <Compile Include="Model\SerialisationDictionary.cs" />
     <Compile Include="Model\SerialisationProcess.cs" />
+    <Compile Include="Model\SerialisationProcess_Binary.cs" />
     <Compile Include="Model\TextBoxesModel.cs" />
     <Compile Include="Resources\StaticProp.cs" />
     <Compile Include="Resources\ToDo.cs" />

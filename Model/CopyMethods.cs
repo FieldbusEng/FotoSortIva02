@@ -59,6 +59,19 @@ namespace FotoSortIva02.Model
                         newFullPath = _destinationDirectory + newFullName;
                     }
 
+                    #region TEST1 here is was experiment to be able to open the file and close it - so no other process access the file !!!
+                    try
+                    {
+                        FileStream fs = System.IO.File.Open(_fileToCopy, System.IO.FileMode.OpenOrCreate, System.IO.FileAccess.Read, System.IO.FileShare.None);
+                        fs.Close();
+                    }
+                    catch (IOException e)
+                    {
+                        string messageToWriteFailed = "Exception happen" + e.ToString();
+                        LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                    }
+                    #endregion
+
                     // Move
                     File.Move(_fileToCopy, newFullPath);
                     Thread.Sleep(10);
@@ -66,6 +79,9 @@ namespace FotoSortIva02.Model
                 }
                 catch (IOException e) when (i <= NumberOfRetries)
                 {
+                    string messageToWriteFailed = "Exception happen" + e.ToString();
+                    LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+
                     Thread.Sleep(DelayOnRetry);
                 }
             }

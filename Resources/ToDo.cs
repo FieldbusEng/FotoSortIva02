@@ -27,11 +27,12 @@ namespace FotoSortIva02.Resources
         //Y  -block Exit during process
 
         // ProgressBar is not checked fully - when i copy video it seems not changing the progressbar value > can try to ref. the progressbar value to copy video class
+        // Also ProgressBar - working not properly when I Move files -  because in Move method nothing linked to ProgressBar 
 
-        // Delete after copying for pic files does not work because Exception "The process cannot access the file because it is being used by another process"
-        // I added in CopyMethods > Move method > functionality of repeat tryials in case of exception - doesnt help
-        // also im trying to find which process holding the file and make this process iDisposable? tried through: using(){} - doesnt help
-        // TRY: i think the exif library is holding the files. i can read all exif data before then i can serialize it to some file and then a can start additional separate thread to move files.
+        // Y Delete after copying for pic files does not work because Exception "The process cannot access the file because it is being used by another process"
+            // I added in CopyMethods > Move method > functionality of repeat tryials in case of exception - doesnt help
+            // also im trying to find which process holding the file and make this process iDisposable? tried through: using(){} - doesnt help
+            // TRY: i think the exif library is holding the files. i can read all exif data before then i can serialize it to some file and then a can start additional separate thread to move files.
 
         //Y -Make Text box Status -not changeble IsReadOnly="True" 
         //Y -Make possible to move windows after deleting top panel - now it is possible to drag by the TextBlock Text="Foto Sorting App"

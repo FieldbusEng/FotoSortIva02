@@ -113,7 +113,7 @@
 
                 <Grid Grid.Row="4">
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Delete orinal files after copying : "
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Delete original files after copying : "
                                HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
                     <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
 

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
-using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FotoSortIva02.Model
 {
-    // this serialisation xml doesnt work - to delete (because i use binary serialisation)
-    
-    public class SerialisationProcess
+    class SerialisationProcess_Binary
     {
-        public void DoSerialisation(Dictionary<string, string> _inMovePicDictionary)
+        public void DoSerialisationB(Dictionary<string, string> _inMovePicDictionary)
         {
             // Serialisation -xml serialisation is not possible for dictionary - thats why i use SerialisationDictionary[] for serialisation
             SerialisationDictionary[] arrayClassDict = new SerialisationDictionary[_inMovePicDictionary.Keys.Count()];
@@ -24,14 +23,14 @@ namespace FotoSortIva02.Model
                 ii++;
             }
 
-            XmlSerializer serializer = new XmlSerializer(typeof(SerialisationDictionary[]));
+            BinaryFormatter formater = new BinaryFormatter();
             // получаем поток, куда будем записывать сериализованный объект
             using (FileStream fs = new FileStream("secretData.xml", FileMode.OpenOrCreate))
             {
 
                 try
                 {
-                    serializer.Serialize(fs, arrayClassDict);
+                    formater.Serialize(fs, arrayClassDict);
 
                 }
                 catch (Exception e)
@@ -44,24 +43,23 @@ namespace FotoSortIva02.Model
             }
         }
 
-        public Dictionary<string, string> DoDeserialisation()
+        public Dictionary<string, string> DoDeserialisationB()
         {
             int numberItems = 0;
             Dictionary<string, string> readyDict = new Dictionary<string, string>();
 
-            XmlSerializer serzer = new XmlSerializer(typeof(SerialisationDictionary[]));
+            BinaryFormatter formater = new BinaryFormatter();
             // получаем поток, куда будем записывать сериализованный объект
             using (FileStream fs = new FileStream("secretData.xml", FileMode.OpenOrCreate))
             {
-
                 try
                 {
-                    
-                    SerialisationDictionary[] arrayClassDict1 = (SerialisationDictionary[])serzer.Deserialize(fs);
+
+                    SerialisationDictionary[] arrayClassDict1 = (SerialisationDictionary[])formater.Deserialize(fs);
                     numberItems = arrayClassDict1.Length;
                     foreach (var ittem in arrayClassDict1)
                     {
-                        readyDict.Add(ittem.keyy,ittem.valuee);
+                        readyDict.Add(ittem.keyy, ittem.valuee);
                     }
                 }
                 catch (Exception e)
@@ -75,7 +73,7 @@ namespace FotoSortIva02.Model
             string message = "DEserialisation process finished";
             LoggingTxtIva ll3 = new LoggingTxtIva(message);
             return readyDict;
-            
+
         }
 
     }
