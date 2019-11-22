@@ -414,7 +414,9 @@ namespace FotoSortIva02.ViewModel
                 }
 
             }
-             
+            // Stop button make hidden again
+            VisibilityStopButton = Visibility.Hidden;
+
             // enable exit button when process is finished
             IsEnabledExitButton = true;
             
