@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 
 namespace FotoSortIva02.ViewModel
 {
-    public class ViewModelBase : TextBoxesModel
+    public partial class ViewModelBase : TextBoxesModel
     {
         #region Singleton Realisation
         // this class will be realized as Singleton, Because it will be used same in different designes of Windowses "MainWindow.xaml" <> "Main_Grid_Style.xaml"
@@ -129,10 +129,7 @@ namespace FotoSortIva02.ViewModel
                         {
                             //  ProgressBarStatusMax will be pictures + Video
                             ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
-
-                            CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
-                            // toDo implement ProgressBar for video copying as well
-
+                            MethodCopyVideoFiles(filesNamesVideo);
                         }
 
                         foreach (string item in filesNames)
@@ -286,7 +283,7 @@ namespace FotoSortIva02.ViewModel
                         var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                         filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
                         
-                        // ProgressBarStatusMax will be only pictures
+                        // ProgressBarStatusMax will be only pictures if video not needed to copy
                         ProgressBarStatusMax = filesNames.Length;
 
                         // i work with video files separately
@@ -295,8 +292,7 @@ namespace FotoSortIva02.ViewModel
                         {
                             //  ProgressBarStatusMax will be pictures + Video
                             ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
-                            CopyVideoFiles copyvideoInst = new CopyVideoFiles(filesNamesVideo);
-                            // toDo implement ProgressBar for video copying as well
+                            MethodCopyVideoFiles(filesNamesVideo);
                         }
                         
                         foreach (string item in filesNames)

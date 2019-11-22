@@ -1,15 +1,12 @@
-﻿using FotoSortIva02.Resources;
+﻿using FotoSortIva02.Model;
+using FotoSortIva02.Resources;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace FotoSortIva02.Model
+namespace FotoSortIva02.ViewModel
 {
-    class CopyVideoFiles : TextBoxesModel
+    partial class ViewModelBase
     {
         // Method to Move Files to the folder taking into account that such a file exists or not
         void Move_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
@@ -40,6 +37,8 @@ namespace FotoSortIva02.Model
         {
             int count = 1;
 
+
+
             string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
             string extension = Path.GetExtension(_fileToCopy);
             string path = Path.GetDirectoryName(_fileToCopy);
@@ -59,7 +58,7 @@ namespace FotoSortIva02.Model
             Thread.Sleep(2);
         }
 
-        public CopyVideoFiles(string[] filesVideoCollected)
+        public void MethodCopyVideoFiles(string[] filesVideoCollected)
         {
             // in case check box Video As Well to separate Folder is true
             if (StaticProp.CheckBoxVideoSeparateFolder == true)
@@ -69,6 +68,7 @@ namespace FotoSortIva02.Model
                 {
                     foreach (string item in filesVideoCollected)
                     {
+                        // to increase ProgressStatusBarValue
                         ProgressBarStatusValue++;
 
                         try
@@ -90,7 +90,7 @@ namespace FotoSortIva02.Model
                             }
                             else
                             {
-                                
+
                                 Directory.CreateDirectory(extendedFolderForVideo);
                                 string fileToCopy = item;
                                 string destinationDirectory = extendedFolderForVideo + "\\";
@@ -118,8 +118,9 @@ namespace FotoSortIva02.Model
                     // in case check box Delete files after copy is False
                     foreach (string item in filesVideoCollected)
                     {
+                        // to increase ProgressBarStatusValue
+                        
                         ProgressBarStatusValue++;
-
                         try
                         {
 
@@ -136,7 +137,7 @@ namespace FotoSortIva02.Model
 
                                 // method to copy files but also to check if such a file already exist
                                 Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                
+
                                 //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
 
 
@@ -162,11 +163,9 @@ namespace FotoSortIva02.Model
 
                         }
 
-
                     }
 
                 }
-
 
             }
             else
@@ -176,5 +175,6 @@ namespace FotoSortIva02.Model
             }
 
         }
+
     }
 }

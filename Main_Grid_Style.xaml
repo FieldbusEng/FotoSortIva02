@@ -57,7 +57,8 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{DynamicResource GridButton}" Command="{Binding ScanButtCommand}" Content="From where" Margin="20,10,20,10" />
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding ScanButtCommand}"
+                            Content="From where" Margin="20,10,20,10" />
                     <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch"
                              Text="{Binding TextBoxScanFolder}"
                              Template="{StaticResource TextBoxBaseControlTemplate}"
@@ -69,7 +70,18 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{DynamicResource GridButton}" Command="{Binding CreateButtCommand}" Content="To where" Margin="20,10,20,10"/>
+                    <Button Style="{DynamicResource GridButton}" Command="{Binding CreateButtCommand}"
+                            Content="To where" Margin="20,10,20,10"
+                            RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="5"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
 
                     <TextBox x:Name="TextBoxNewFolder" Grid.Column="1" HorizontalAlignment="Stretch"
                              Text="{Binding TextBoxNewFolder}"
