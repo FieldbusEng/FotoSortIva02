@@ -54,12 +54,13 @@
                 <!-- первая инфа кнопка и текст -->
                 <Grid Grid.Row="0" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="12*"/>
                     </Grid.ColumnDefinitions>
                     <Button Style="{DynamicResource GridButton}" Command="{Binding ScanButtCommand}"
-                            Content="From where" Margin="20,10,20,10" />
-                    <TextBox x:Name="TextBoxScanFolder" Grid.Column="1" HorizontalAlignment="Stretch"
+                            Content="From where" Margin="20,10,20,10" Grid.ColumnSpan="2" />
+                    <TextBox x:Name="TextBoxScanFolder" Grid.Column="2" HorizontalAlignment="Stretch"
                              Text="{Binding TextBoxScanFolder}"
                              Template="{StaticResource TextBoxBaseControlTemplate}"
                              Margin="10,15,20,15" />
@@ -106,7 +107,7 @@
                             <RowDefinition Height ="1*"/>
                             <RowDefinition Height ="1*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <TextBox x:Name="TextBoxStatus" HorizontalAlignment="Stretch" 
                                  Text="{Binding TextBoxStatus, Mode=OneWay}"
                                  IsReadOnly="True" 
@@ -156,7 +157,7 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Grid Grid.Column="0">
                         <Button Content="Log file"
                     Style="{DynamicResource GridButton}"
@@ -165,7 +166,7 @@
                     HorizontalAlignment="Left" VerticalAlignment="Center"
                     Margin="20,10,0,10" MinHeight="30" MinWidth="60"/>
                     </Grid>
-                    
+
                     <Grid Grid.Column="1">
                         <Button Content="STOP"
                         Style="{DynamicResource GridButton}"
@@ -183,7 +184,7 @@
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="10,10,10,10" MinHeight="30" MinWidth="60"/>
                     </Grid>
-                    
+
                 </Grid>
 
                 <Grid Grid.Row="0">
@@ -212,7 +213,7 @@
                 Margin="20,20,30,20"
                 />
 
-                
+
 
             </Grid>
 

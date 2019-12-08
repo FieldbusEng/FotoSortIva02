@@ -3,17 +3,13 @@ using FotoSortIva02.Model;
 using FotoSortIva02.Resources;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Xml.Serialization;
+
 
 namespace FotoSortIva02.ViewModel
 {
@@ -44,7 +40,6 @@ namespace FotoSortIva02.ViewModel
         #region CTOR
         private ViewModelBase()
         {
-
 
             // read all lines from txt file and put it to List<string>
             List<string> EmptyList = new List<string> { };
