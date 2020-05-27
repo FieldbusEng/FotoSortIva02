@@ -75,6 +75,7 @@
     <Compile Include="Model\Helper.cs" />
     <Compile Include="Model\LoggingTxtIva.cs" />
     <Compile Include="Model\MethodsFromStartButton.cs" />
+    <Compile Include="Model\neeeeew Class.cs" />
     <Compile Include="Model\NotifyPropertyChanged.cs" />
     <Compile Include="Model\PartialViewModelBase_CopyVideo.cs" />
     <Compile Include="Model\Pathes.cs" />
