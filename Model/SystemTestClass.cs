@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FotoSortIva02.Model
 {
-    class neeeeew_Class
+    class SystemTestClass
     {
-        public neeeeew_Class()
+        public SystemTestClass()
         {
-            string sdf = "Hello";
+            int sdpfo = 1;
 
         }
     }
