@@ -11,6 +11,24 @@ namespace FotoSortIva02.Model
     public class CopyMethods
     {
 
+        #region Singleton Realisation
+        // this class will be realized as Singleton, Because it will be used same in different designes of Windowses "MainWindow.xaml" <> "Main_Grid_Style.xaml"
+        private static CopyMethods _instance;
+        public static CopyMethods Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CopyMethods();
+                }
+                return _instance;
+            }
+        }
+
+        #endregion
+
+
         public void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
         {
             int count = 1;
@@ -31,7 +49,7 @@ namespace FotoSortIva02.Model
 
             // Copy 
             File.Copy(_fileToCopy, newFullPath);
-            Thread.Sleep(10);
+            Thread.Sleep(2);
         }
 
         // needed in case process cannot access the file  because it is being used by another process
@@ -68,19 +86,19 @@ namespace FotoSortIva02.Model
                     catch (IOException e)
                     {
                         string messageToWriteFailed = "Exception happen" + e.ToString();
-                        LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                        LoggingTxtIva.GetInstance(messageToWriteFailed);
                     }
                     #endregion
 
                     // Move
                     File.Move(_fileToCopy, newFullPath);
-                    Thread.Sleep(10);
+                    Thread.Sleep(2);
                     break;
                 }
                 catch (IOException e) when (i <= NumberOfRetries)
                 {
                     string messageToWriteFailed = "Exception happen" + e.ToString();
-                    LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                    LoggingTxtIva.GetInstance(messageToWriteFailed);
 
                     Thread.Sleep(DelayOnRetry);
                 }

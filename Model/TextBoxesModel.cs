@@ -51,6 +51,18 @@ namespace FotoSortIva02.Model
 
             }
         }
+
+        private Visibility visibilityStartButton;
+        public Visibility VisibilityStartButton
+        {
+            get { return this.visibilityStartButton; }
+            set
+            {
+                visibilityStartButton = value;
+                RaisePropertyChange("VisibilityStartButton");
+
+            }
+        }
         #endregion
 
         #region ProgressBarStatus

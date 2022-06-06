@@ -37,7 +37,7 @@ namespace FotoSortIva02.Model
                 catch (Exception e)
                 {
                     string messageToWriteFailed = "Serialisation Exception happen" + e.ToString();
-                    LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                    LoggingTxtIva.GetInstance(messageToWriteFailed);
 
                 }
 
@@ -67,13 +67,13 @@ namespace FotoSortIva02.Model
                 catch (Exception e)
                 {
                     string messageToWriteFailed = "DE serialisation Exception happen" + e.ToString();
-                    LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
+                    LoggingTxtIva.GetInstance(messageToWriteFailed);
 
                 }
 
             }
             string message = "DEserialisation process finished";
-            LoggingTxtIva ll3 = new LoggingTxtIva(message);
+            LoggingTxtIva.GetInstance(message);
             return readyDict;
             
         }

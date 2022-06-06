@@ -125,18 +125,31 @@
                 </Grid>
 
                 <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Delete original files after copying : "
-                               HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
-                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <TextBlock Grid.Row="0"  Grid.Column="0" Text="Delete orig after copying : "
+                               HorizontalAlignment="Left" Margin="10,0,0,0"  VerticalAlignment="Center"/>
+                    <CheckBox  Grid.Row="0" Grid.Column="0" Command="{Binding CheckBoxDel_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+
+                    <TextBlock Grid.Row="0"  Grid.Column="1" Text="Copy Only new : "
+                               HorizontalAlignment="Left" Margin="10,0,0,0"  VerticalAlignment="Center"/>
+                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxCopyOnlyNew_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
 
                 </Grid>
 
                 <Grid Grid.Row="5">
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Video as Well : "
-                               HorizontalAlignment="Left" Margin="20,0,0,0"  VerticalAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Copy Video : "
+                               HorizontalAlignment="Left" Margin="10,0,0,0"  VerticalAlignment="Center"/>
 
-                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <CheckBox  Grid.Row="0" Grid.Column="0" Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
 
                 </Grid>
 
@@ -180,6 +193,7 @@
                         <Button Content="Start"
                         Style="{DynamicResource GridButtonStart}"
                         Command="{Binding StartButtCommand}"
+                        Visibility="{Binding VisibilityStartButton}"
                         Grid.Column="0" Grid.Row="2" 
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="10,10,10,10" MinHeight="30" MinWidth="60"/>

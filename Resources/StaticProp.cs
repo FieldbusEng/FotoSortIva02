@@ -53,6 +53,8 @@ namespace FotoSortIva02.Resources
 
         // Static bool for CheckBox Copy Video as well to separate folder
         public static bool CheckBoxVideoSeparateFolder = false;
+
+        public static bool PropCheckBoxCopyOnlyNew = false;
     }
 
        

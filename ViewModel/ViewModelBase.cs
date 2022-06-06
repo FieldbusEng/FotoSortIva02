@@ -43,8 +43,8 @@ namespace FotoSortIva02.ViewModel
 
             // read all lines from txt file and put it to List<string>
             List<string> EmptyList = new List<string> { };
-            LoggingTxtIva ll0 = new LoggingTxtIva(EmptyList);
-
+            LoggingTxtIva ll0 = LoggingTxtIva.GetInstance(EmptyList.ToString());
+            CopyMethods CopyMethodsInst = new CopyMethods();
 
             TextBoxGenShow = "No Pictures choosen";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
@@ -53,6 +53,7 @@ namespace FotoSortIva02.ViewModel
             IsEnabledOpenFolderButton = false;
             IsEnabledExitButton = true;
             VisibilityStopButton = Visibility.Hidden;
+            VisibilityStartButton = Visibility.Visible;
 
         }
         #endregion
@@ -71,21 +72,36 @@ namespace FotoSortIva02.ViewModel
         // here i announce thread so it will be accessible from Start and Stop button
         ThreadStart secondPotok;
         Thread potok;
+        CopyMethods CopyMethodsInst;
 
         void StartButtAction()
         {
-            // here i will call second Thread
-            secondPotok = new ThreadStart(StartButtonMethod);
-            potok = new Thread(secondPotok);
-            potok.Start();
+            if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+            {
+                // here i will call second Thread
+                secondPotok = new ThreadStart(StartButtonMethod);
+                potok = new Thread(secondPotok);
+                potok.Start();
+            }
+            else
+            {
+                //if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
+                //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
+                TextBoxStatus = "Folders not determined";
+
+            }
+
+
         }
 
         object block = new object();
+
         void StartButtonMethod()
         {
             // disable button exit during run of the process
             IsEnabledExitButton = false;
             VisibilityStopButton = Visibility.Visible;
+            VisibilityStartButton = Visibility.Hidden;
             // create dictionary to put all pairs what to Move where to Move and serialize it.
             var MovePicDictionary = new Dictionary<string, string>();
 
@@ -95,158 +111,120 @@ namespace FotoSortIva02.ViewModel
                 if (StaticProp.PropCheckBoxDelete)
                 {
                     #region Check Box Delete = true
-                    
-                    if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                    {
-                        // Change TextBoxStatus
-                        TextBoxStatus = "Process Started";
-                        // Progress bar visible
-                        ProgressBarStatusVisible = Visibility.Visible;
 
-                        Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Process Started";
+                    // Progress bar visible
+                    ProgressBarStatusVisible = Visibility.Visible;
 
-                        String searchFolder = pathing.InitialFolderPath;
-                        var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
+                    Pathes pathing = new Pathes(StaticProp.ScanningFolderPath);
+
+                    String searchFolder = pathing.InitialFolderPath;
+                    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
                                               
-                        MethodsFromStartButton methods = new MethodsFromStartButton();
-                        filesNames = methods.GetLongFilesFrom(searchFolder, filters, false);
+                    MethodsFromStartButton methods = new MethodsFromStartButton();
+                    filesNames = methods.GetLongFilesFrom(searchFolder, filters, false);
 
-                        var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
+                    var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                         
-                        filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
+                    filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
 
-                        // ProgressBarStatusMax will be only pictures
-                        ProgressBarStatusMax = filesNames.Length;
+                    // ProgressBarStatusMax will be only pictures
+                    ProgressBarStatusMax = filesNames.Length;
 
-                        // i work with video files separately
-                        // make filter for video files
-                        if (StaticProp.CheckBoxVideoSeparateFolder)
+                    // Copy Video As Well > i work with video files separately
+                    if (StaticProp.CheckBoxVideoSeparateFolder == true)
+                    {
+                        //  ProgressBarStatusMax will be pictures + Video
+                        ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
+                        MethodCopyVideoFiles(filesNamesVideo);
+                    }
+
+                    foreach (string item in filesNames)
+                    {
+                        ProgressBarStatusValue++;
+                        // Copy the file
+                        string fileToCopy = item;
+                        string destinationDirectory;
+
+                        try
                         {
-                            //  ProgressBarStatusMax will be pictures + Video
-                            ProgressBarStatusMax = filesNames.Length + filesNamesVideo.Length;
-                            MethodCopyVideoFiles(filesNamesVideo);
-                        }
-
-                        foreach (string item in filesNames)
-                        {
-                            ProgressBarStatusValue++;
-
-                            try
-                            {
                                 
-                                using (ExifReader reader = new ExifReader(item))
+                            using (ExifReader reader = new ExifReader(item))
+                            {
+                                // if exif data exist (!=null)
+                                if (reader != null)
                                 {
-                                    // if exif data exist (!=null)
-                                    if (reader != null)
+                                    // Extract the tag data using the ExifTags enumeration
+                                    DateTime datePictureTaken;
+                                    if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
                                     {
-                                        // Extract the tag data using the ExifTags enumeration
-                                        DateTime datePictureTaken;
-                                        if (reader.GetTagValue<DateTime>(ExifTags.DateTimeDigitized, out datePictureTaken))
+                                        // Do whatever is required with the extracted information
+                                        string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
+                                        LoggingTxtIva.GetInstance(messageToWriteSuccess);
+
+                                        int intmonthOfPic = (Int32)datePictureTaken.Month;
+                                        string monthOfPic = "NOMonth";
+                                        StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
+                                        string yearOfPic = datePictureTaken.Year.ToString();
+                                        // making extended Pathes
+                                        string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
+                                        string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
+                                        //---------------------
+                                        // check if such a year exist in the new folder
+                                        if (Directory.Exists(extendedYearPath))
                                         {
-                                            // Do whatever is required with the extracted information
-                                            string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-                                            LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
-
-                                            int intmonthOfPic = (Int32)datePictureTaken.Month;
-                                            string monthOfPic = "NOMonth";
-                                            StaticProp.Monthes.TryGetValue(intmonthOfPic, out monthOfPic);
-                                            string yearOfPic = datePictureTaken.Year.ToString();
-                                            // making extended Pathes
-                                            string extendedYearPath = StaticProp.CreateFolderPath + string.Format("\\{0}", yearOfPic);
-                                            string extendedMonthPath = extendedYearPath + string.Format("\\{0}", monthOfPic);
-                                            //---------------------
-                                            // check if such a year exist in the new folder
-                                            if (Directory.Exists(extendedYearPath))
+                                            //check if such a month exist in the new folder
+                                            if (Directory.Exists(extendedMonthPath))
                                             {
-                                                //check if such a month exist in the new folder
-                                                if (Directory.Exists(extendedMonthPath))
-                                                {
-                                                    // Copy the file
-                                                    string fileToCopy = item;
-                                                    string destinationDirectory = extendedMonthPath + "\\";
-
-                                                    MovePicDictionary.Add(fileToCopy, destinationDirectory);
-
-                                                    //CopyMethods instanceCopy = new CopyMethods();
-                                                    //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                                }
-                                                else
-                                                { // if month not exist
-                                                    Directory.CreateDirectory(extendedMonthPath);
-                                                    string fileToCopy = item;
-                                                    string destinationDirectory = extendedMonthPath + "\\";
-
-                                                    MovePicDictionary.Add(fileToCopy, destinationDirectory);
-                                                    //CopyMethods instanceCopy = new CopyMethods();
-                                                    //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-
-                                                }
+                                                destinationDirectory = extendedMonthPath + "\\";
                                             }
                                             else
-                                            {
-                                                // if year not exist
-                                                Directory.CreateDirectory(extendedYearPath);
+                                            { // if month not exist
                                                 Directory.CreateDirectory(extendedMonthPath);
-                                                string fileToCopy = item;
-                                                string destinationDirectory = extendedMonthPath + "\\";
-                                                MovePicDictionary.Add(fileToCopy, destinationDirectory);
-
-                                                //CopyMethods instanceCopy = new CopyMethods();
-                                                //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                destinationDirectory = extendedMonthPath + "\\";
                                             }
-                                            Thread.Sleep(2);
-
                                         }
-                                    }
-                                    else
-                                    {
-                                        // nothing
+                                        else // if year not exist
+                                        {
+                                            Directory.CreateDirectory(extendedYearPath);
+                                            Directory.CreateDirectory(extendedMonthPath);
+                                            destinationDirectory = extendedMonthPath + "\\";
+                                        }
+                                        MovePicDictionary.Add(fileToCopy, destinationDirectory);
+                                        Thread.Sleep(2);
 
                                     }
-
                                 }
 
-
                             }
-                            catch (Exception e) // this comes in case No Exif data found
-                            {
-                                string messageToWriteFailed = "Exception happen" + e.ToString();
-                                LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
 
-                                // here i need to create directory in case Exif Data not exist
-                                messageToWriteFailed = "No Exif data in the file";
-                                LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
-
-                                string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
-                                Directory.CreateDirectory(extendedNoExif);
-                                // Copy the file
-                                string fileToCopy = item;
-                                string destinationDirectory = extendedNoExif + "\\";
-
-                                MovePicDictionary.Add(fileToCopy, destinationDirectory);
-
-                                //CopyMethods instanceCopy = new CopyMethods();
-                                //instanceCopy.Move_FileNameExistsMethod(fileToCopy, destinationDirectory);
-
-                            }
                         }
+                        catch (Exception e) // this comes in case No Exif data found
+                        {
+                            string messageToWriteFailed = "Exception happen " + e.ToString();
+                            LoggingTxtIva.GetInstance(messageToWriteFailed);
+  
+                            // here i need to create directory in case Exif Data not exist
+                            messageToWriteFailed = "No Exif data in the file";
+                            LoggingTxtIva.GetInstance(messageToWriteFailed);
+
+                            string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
+                            Directory.CreateDirectory(extendedNoExif);
+
+                            destinationDirectory = extendedNoExif + "\\";
+                            MovePicDictionary.Add(fileToCopy, destinationDirectory);
+
+                        }
+                    }
                     
-                        // Change TextBoxStatus
-                        TextBoxStatus = "Move process Started";
-                    }
-                    else
-                    {
-                        //if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                        //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
-                        TextBoxStatus = "Folders not determined";
-
-                    }
-
+                    // Change TextBoxStatus
+                    TextBoxStatus = "Move process Started";
                     // Serialisation Process
                     SerialisationProcess_Binary makeSerialisation = new SerialisationProcess_Binary();
                     // Make Serialisation:
                     makeSerialisation.DoSerialisationB(MovePicDictionary);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
 
                     // Move Process through another thread - In case it hase influence to the access of the picture source files 
                     //object toPassDict = makeDeSerialisation.DoDeserialisation();
@@ -307,7 +285,7 @@ namespace FotoSortIva02.ViewModel
                                         {
                                             // Do whatever is required with the extracted information
                                             string messageToWriteSuccess = "The picture was taken on  " + datePictureTaken.ToString();
-                                            LoggingTxtIva ll4 = new LoggingTxtIva(messageToWriteSuccess);
+                                            LoggingTxtIva.GetInstance(messageToWriteSuccess);
 
                                             int intmonthOfPic = (Int32)datePictureTaken.Month;
                                             string monthOfPic = "NOMonth";
@@ -328,10 +306,7 @@ namespace FotoSortIva02.ViewModel
                                                     // Copy the file
                                                     string fileToCopy = item;
                                                     string destinationDirectory = extendedMonthPath + "\\";
-
-                                                    CopyMethods instanceCopy = new CopyMethods();
-                                                    instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
-                                                    //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
+                                                    CopyMethodsInst.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
                                                 }
                                                 else
@@ -339,10 +314,8 @@ namespace FotoSortIva02.ViewModel
                                                     Directory.CreateDirectory(extendedMonthPath);
                                                     string fileToCopy = item;
                                                     string destinationDirectory = extendedMonthPath + "\\";
-                                                    CopyMethods instanceCopy = new CopyMethods();
-                                                    instanceCopy.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
+                                                    CopyMethodsInst.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
-                                                    //File.Copy(fileToCopy, destinationDirectory + Path.GetFileName(fileToCopy));
                                                 }
                                             }
                                             else
@@ -371,12 +344,11 @@ namespace FotoSortIva02.ViewModel
                             catch (Exception e) // this comes if exif has no INFO
                             {
                                 string messageToWriteFailed = "Exception happen" + e.ToString();
-                                LoggingTxtIva ll2 = new LoggingTxtIva(messageToWriteFailed);
-
+                                LoggingTxtIva.GetInstance(messageToWriteFailed);
 
                                 // here i need to create directory in case Exif Data not exist
                                 messageToWriteFailed = "No Exif data in the file";
-                                LoggingTxtIva ll5 = new LoggingTxtIva(messageToWriteFailed);
+                                LoggingTxtIva.GetInstance(messageToWriteFailed);
 
                                 string extendedNoExif = StaticProp.CreateFolderPath + "\\No_Date";
                                 Directory.CreateDirectory(extendedNoExif);
@@ -411,6 +383,7 @@ namespace FotoSortIva02.ViewModel
             }
             // Stop button make hidden again
             VisibilityStopButton = Visibility.Hidden;
+            VisibilityStartButton = Visibility.Visible;
 
             // enable exit button when process is finished
             IsEnabledExitButton = true;
@@ -442,6 +415,35 @@ namespace FotoSortIva02.ViewModel
 
 
         #endregion
+
+
+
+        #region CheckBoxCopyOnlyNew_Checked
+
+
+        private ICommand _checkBoxCopyOnlyNew_Checked;
+        public ICommand CheckBoxCopyOnlyNew_Checked
+        {
+            get
+            {
+                return _checkBoxCopyOnlyNew_Checked ?? (_checkBoxCopyOnlyNew_Checked = new CommandHandler(() => CheckBoxCopyOnlyNew_CheckedAction(), () => CanExecute));
+            }
+        }
+
+        void CheckBoxCopyOnlyNew_CheckedAction()
+        {
+            if (StaticProp.PropCheckBoxCopyOnlyNew == false)
+            {
+                StaticProp.PropCheckBoxCopyOnlyNew = true;
+            }
+            else
+            {
+                StaticProp.PropCheckBoxCopyOnlyNew = false;
+            }
+
+        }
+        #endregion
+
 
         #region CheckboxDelete
 
