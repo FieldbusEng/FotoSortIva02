@@ -85,13 +85,8 @@ namespace FotoSortIva02.ViewModel
             }
             else
             {
-                //if (StaticProp.ScanningFolderPath != "empty" && StaticProp.CreateFolderPath != "empty")
-                //MessageBox.Show("You have to choose SCAN folder and NEW folder", "Help", MessageBoxButtons.OK);
                 TextBoxStatus = "Folders not determined";
-
             }
-
-
         }
 
         object block = new object();

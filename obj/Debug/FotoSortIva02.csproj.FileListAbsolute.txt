@@ -73,3 +73,28 @@ D:\Programs\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CoreCompileInput
 D:\Programs\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CopyComplete
 D:\Programs\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.exe
 D:\Programs\GitHub\FotoSortIva02\obj\Debug\FotoSortIva02.pdb
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\bin\Debug\FotoSortIva02.exe.config
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\bin\Debug\FotoSortIva02.exe
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\bin\Debug\FotoSortIva02.pdb
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\bin\Debug\XmpCore.xml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.csprojAssemblyReference.cache
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\InfoWindow.g.cs
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\MainWindow.g.cs
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\Main_Grid_Style.g.cs
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\SpareWindow.g.cs
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\App.g.cs
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02_MarkupCompile.cache
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02_MarkupCompile.lref
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\App.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\Resources\Styles\Dictionary1.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\InfoWindow.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\MainWindow.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\Main_Grid_Style.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\SpareWindow.baml
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.g.resources
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.Properties.Resources.resources
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.GenerateResource.cache
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CoreCompileInputs.cache
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.csproj.CopyComplete
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.exe
+C:\Users\AdminRA\Desktop\Ivan's Files\FotoSortIva02\obj\Debug\FotoSortIva02.pdb
