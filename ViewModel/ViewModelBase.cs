@@ -116,12 +116,9 @@ namespace FotoSortIva02.ViewModel
 
                     String searchFolder = pathing.InitialFolderPath;
                     var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp", "svg" };
-                                              
+                    var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
                     MethodsFromStartButton methods = new MethodsFromStartButton();
                     filesNames = methods.GetLongFilesFrom(searchFolder, filters, false);
-
-                    var filtersVideo = new String[] { "mp4", "avi", "mpg", "mpeg", "m2v", "mp2", "mpe", "mpv", "m4p", "m4v", "amv", "rmvb", "rm", "yuv", "wmv", "mov", "qt", "mng", "gifv", "ogv", "ogg", "vob", "flv", "mkv" };
-                        
                     filesNamesVideo = methods.GetLongFilesFrom(searchFolder, filtersVideo, false);
 
                     // ProgressBarStatusMax will be only pictures
@@ -217,7 +214,7 @@ namespace FotoSortIva02.ViewModel
                     TextBoxStatus = "Move process Started";
                     // Serialisation Process
                     SerialisationProcess_Binary makeSerialisation = new SerialisationProcess_Binary();
-                    // Make Serialisation:
+                    // Make Serialisation. Fro this Method called method which Moves files
                     makeSerialisation.DoSerialisationB(MovePicDictionary);
                     Thread.Sleep(100);
 
