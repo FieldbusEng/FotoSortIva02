@@ -39,7 +39,7 @@ namespace FotoSortIva02.Model
         }
         #endregion
 
-        #region VisibilityStopButton
+        #region Visibility Buttons
         private Visibility visibilityStopButton;
         public Visibility VisibilityStopButton
         {
@@ -63,6 +63,21 @@ namespace FotoSortIva02.Model
 
             }
         }
+
+        private Visibility visibilityResetButton;
+        public Visibility VisibilityResetButton
+        {
+            get
+            {
+                return this.visibilityResetButton;
+            }
+            set
+            {
+                visibilityResetButton = value;
+                RaisePropertyChange("VisibilityResetButton");
+            }
+        }
+
         #endregion
 
         #region ProgressBarStatus
@@ -78,6 +93,7 @@ namespace FotoSortIva02.Model
             {
                 progressBarStatusVisible = value;
                 RaisePropertyChange("ProgressBarStatusVisible");
+
             }
         }
 
@@ -179,6 +195,14 @@ namespace FotoSortIva02.Model
             {
                 textBoxStatus = value;
                 RaisePropertyChange("TextBoxStatus");
+                StatusPropertyChange();
+            }
+        }
+        public void StatusPropertyChange()
+        {
+            if (textBoxStatus == "Process Finished!")
+            {
+                VisibilityResetButton = Visibility.Visible;
             }
         }
 
@@ -205,6 +229,34 @@ namespace FotoSortIva02.Model
                 RaisePropertyChange("BottomTextBl_Text");
             }
         }
+
+        #region   ChBoxCopyOnlyNew_IsChecked
+        private bool chBoxCopyOnlyNew_IsChecked;
+        public bool ChBoxCopyOnlyNew_IsChecked
+        {
+            get { return this.chBoxCopyOnlyNew_IsChecked; }
+            set
+            {
+                chBoxCopyOnlyNew_IsChecked = value;
+                RaisePropertyChange("ChBoxCopyOnlyNew_IsChecked");
+
+            }
+        }
+        #endregion
+
+        #region   ChBoxCopyVideo_IsChecked
+        private bool chBoxCopyVideo_IsChecked;
+        public bool ChBoxCopyVideo_IsChecked
+        {
+            get { return this.chBoxCopyVideo_IsChecked; }
+            set
+            {
+                chBoxCopyVideo_IsChecked = value;
+                RaisePropertyChange("ChBoxCopyVideo_IsChecked");
+
+            }
+        }
+        #endregion
 
     }
 }

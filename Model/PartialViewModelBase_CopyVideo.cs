@@ -4,15 +4,21 @@ using System;
 using System.IO;
 using System.Threading;
 
+namespace FotoSortIva02
+{
+    public enum ActionCopy
+    {
+        Move,
+        Copy
+    }
+}
+
 namespace FotoSortIva02.ViewModel
 {
+
     partial class ViewModelBase
     {
-        enum ActionCopy
-        {
-          Move,
-          Copy
-        }
+
         // Method to Move or Copy Files to the folder taking into account that such a file exists or not
         void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory, ActionCopy actionCopy)
         {

@@ -30,7 +30,7 @@ namespace FotoSortIva02.Model
         #endregion
 
 
-        public void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
+        public void Copy_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory, ActionCopy actionCopy)
         {
             int count = 1;
 
@@ -53,37 +53,29 @@ namespace FotoSortIva02.Model
                 newFullPath = _destinationDirectory + newFullName;
             }
 
+            if (actionCopy == ActionCopy.Copy) // Copy Called
+            {
+                File.Copy(_fileToCopy, newFullPath);
+                Thread.Sleep(2);
+            }
+            else // Move Called
+            {
+                Move_Method(_fileToCopy, newFullPath);
+                Thread.Sleep(2);
+            }
+            
 
-            // Copy 
-            File.Copy(_fileToCopy, newFullPath);
-            Thread.Sleep(2);
         }
-
         // needed in case process cannot access the file  because it is being used by another process
         private const int NumberOfRetries = 3;
-        private const int DelayOnRetry = 1000;
+        private const int DelayOnRetry = 200;
 
-        public void Move_FileNameExistsMethod(string _fileToCopy, string _destinationDirectory)
+        void Move_Method(string _fileToCopy, string _newFullPath)
         {
             for (int i = 1; i <= NumberOfRetries; i++)
             {
                 try
                 {
-                    int count = 1;
-                    string fileNameOnly = Path.GetFileNameWithoutExtension(_fileToCopy);
-                    string extension = Path.GetExtension(_fileToCopy);
-                    string path = Path.GetDirectoryName(_fileToCopy);
-                    string newFullPath = _destinationDirectory + fileNameOnly + extension;
-                    string newFullName = _fileToCopy;
-
-                    while (File.Exists(newFullPath))
-                    {
-                        string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
-                        //newFullPath = Path.Combine(path, tempFileName + extension);
-                        newFullName = tempFileName + extension;
-                        newFullPath = _destinationDirectory + newFullName;
-                    }
-
                     #region TEST1 here is was experiment to be able to open the file and close it - so no other process access the file !!!
                     try
                     {
@@ -98,7 +90,7 @@ namespace FotoSortIva02.Model
                     #endregion
 
                     // Move
-                    File.Move(_fileToCopy, newFullPath);
+                    File.Move(_fileToCopy, _newFullPath);
                     Thread.Sleep(2);
                     break;
                 }

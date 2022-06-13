@@ -137,7 +137,7 @@
 
                     <TextBlock Grid.Row="0"  Grid.Column="1" Text="Copy Only new : "
                                HorizontalAlignment="Left" Margin="10,0,0,0"  VerticalAlignment="Center"/>
-                    <CheckBox  Grid.Row="0" Grid.Column="1" Command="{Binding CheckBoxCopyOnlyNew_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <CheckBox  x:Name="ChBoxCopyOnlyNew_Name" Grid.Row="0" Grid.Column="1" IsChecked="{Binding ChBoxCopyOnlyNew_IsChecked}" Command="{Binding CheckBoxCopyOnlyNew_Checked}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
 
                 </Grid>
 
@@ -150,7 +150,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Copy Video : "
                                HorizontalAlignment="Left" Margin="10,0,0,0"  VerticalAlignment="Center"/>
 
-                    <CheckBox  Grid.Row="0" Grid.Column="0" Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="ChBoxCopyVideo_Name" Grid.Row="0" Grid.Column="0" IsChecked="{Binding ChBoxCopyVideo_IsChecked}" Command="{Binding CheckBoxVideoSeparateFolder}" ClickMode="Press" Content="" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,20,0"/>
 
                 </Grid>
 
@@ -167,7 +167,8 @@
 
                 <Grid Grid.Row="2" Margin="0,0,30,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
@@ -182,6 +183,16 @@
                     </Grid>
 
                     <Grid Grid.Column="1">
+                    <Button Content="Reset"
+                    Style="{DynamicResource GridButton}"
+                    Command="{Binding ResetButtCommand}"
+                    Visibility="{Binding VisibilityResetButton}"
+                    Grid.Column="0" Grid.Row="2"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Margin="20,10,0,10" MinHeight="30" MinWidth="60"/>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
                         <Button Content="STOP"
                         Style="{DynamicResource GridButton}"
                         Command="{Binding StopButtCommand}"
@@ -190,7 +201,7 @@
                         HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="10,10,10,10" MinHeight="30" MinWidth="60"/>
                     </Grid>
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="3">
                         <Button Content="Start"
                         Style="{DynamicResource GridButtonStart}"
                         Command="{Binding StartButtCommand}"

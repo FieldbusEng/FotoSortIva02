@@ -11,9 +11,13 @@ namespace FotoSortIva02.Model
             if (PropertyChanged != null)
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+
+                //if (propertyname == "TextBoxStatus" && TextBoxesModel.TextBoxStatus == "Process Finished!")
+                //{ }
             }
         }
 
-        
+
+
     }
 }
