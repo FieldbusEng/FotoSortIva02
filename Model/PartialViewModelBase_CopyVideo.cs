@@ -72,7 +72,7 @@ namespace FotoSortIva02.ViewModel
                 try
                 {
                     // check if such a folder exist
-                    if (File.Exists(extendedFolderForVideo))
+                    if (Directory.Exists(extendedFolderForVideo))
                     {
                         destinationDirectory = extendedFolderForVideo + "\\";
                     }

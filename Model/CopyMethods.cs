@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FotoSortIva02.Resources;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,13 +40,19 @@ namespace FotoSortIva02.Model
             string newFullPath = _destinationDirectory+fileNameOnly+extension;
             string newFullName = _fileToCopy;
 
-            while (File.Exists(newFullPath))
+            // if file exist and need to copy only new
+            if (File.Exists(newFullPath) & StaticProp.PropCheckBoxCopyOnlyNew)
+            {
+                return;
+            }
+            else if(File.Exists(newFullPath) & !StaticProp.PropCheckBoxCopyOnlyNew) // if file exist but copy anyway
             {
                 string tempFileName = string.Format("{0}({1})", fileNameOnly, count++);
                 //newFullPath = Path.Combine(path, tempFileName + extension);
                 newFullName = tempFileName + extension;
-                newFullPath = _destinationDirectory+newFullName;
+                newFullPath = _destinationDirectory + newFullName;
             }
+
 
             // Copy 
             File.Copy(_fileToCopy, newFullPath);

@@ -36,6 +36,10 @@ namespace FotoSortIva02.ViewModel
 
         string[] filesNames = new string[] { };
         string[] filesNamesVideo = new string[] { };
+        // here i announce thread so it will be accessible from Start and Stop button
+        ThreadStart secondPotok;
+        Thread potok;
+        CopyMethods CopyMethodsInst;
 
         #region CTOR
         private ViewModelBase()
@@ -44,7 +48,7 @@ namespace FotoSortIva02.ViewModel
             // read all lines from txt file and put it to List<string>
             List<string> EmptyList = new List<string> { };
             LoggingTxtIva ll0 = LoggingTxtIva.GetInstance(EmptyList.ToString());
-            CopyMethods CopyMethodsInst = new CopyMethods();
+            CopyMethodsInst = new CopyMethods();
 
             TextBoxGenShow = "No Pictures choosen";
             TextBoxNewFolder = StaticProp.initTextBoxNewFolder;
@@ -69,10 +73,6 @@ namespace FotoSortIva02.ViewModel
             }
         }
 
-        // here i announce thread so it will be accessible from Start and Stop button
-        ThreadStart secondPotok;
-        Thread potok;
-        CopyMethods CopyMethodsInst;
 
         void StartButtAction()
         {
