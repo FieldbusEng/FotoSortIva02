@@ -48,8 +48,6 @@ namespace FotoSortIva02.ViewModel
                 File.Copy(_fileToCopy, newFullPath);
                 Thread.Sleep(2);
             }
-            
-
         }
 
 

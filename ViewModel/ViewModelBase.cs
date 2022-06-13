@@ -298,6 +298,7 @@ namespace FotoSortIva02.ViewModel
                                                     // Copy the file
                                                     string fileToCopy = item;
                                                     string destinationDirectory = extendedMonthPath + "\\";
+                                                    MethodCopyVideoFiles()
                                                     CopyMethodsInst.Copy_FileNameExistsMethod(fileToCopy, destinationDirectory);
 
                                                 }
